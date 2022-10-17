@@ -1,5 +1,5 @@
 - ParameterKey: "Environment"
-  ParameterValue: __CICDNOOPS_PARAMETER_ENVIRONMENT__
+  ParameterValue: svts
 - ParameterKey: "Team"
   ParameterValue: __CICDNOOPS_PARAMETER_TEAM__
 - ParameterKey: "Project"

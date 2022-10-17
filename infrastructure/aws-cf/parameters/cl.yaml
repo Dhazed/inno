@@ -1,2 +1,8 @@
 - ParameterKey: "Environment"
   ParameterValue: "cl"
+- ParameterKey: "Team"
+  ParameterValue: __CICDNOOPS_PARAMETER_TEAM__
+- ParameterKey: "Project"
+  ParameterValue: __CICDNOOPS_PARAMETER_PROJECT__
+- ParameterKey: "Component"
+  ParameterValue: __CICDNOOPS_PARAMETER_COMPONENT__
