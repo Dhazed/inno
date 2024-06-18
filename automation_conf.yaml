@@ -1,4 +1,4 @@
-release_version: 0.1
+release_version: 0.1.0
 build:
   custom_image: false
   custom_image_version: "0.1"
