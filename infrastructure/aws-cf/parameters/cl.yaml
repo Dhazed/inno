@@ -1,8 +1,8 @@
 - ParameterKey: "Environment"
   ParameterValue: "cl"
 - ParameterKey: "Team"
-  ParameterValue: __CICDNOOPS_PARAMETER_TEAM__
+  ParameterValue: inno
 - ParameterKey: "Project"
-  ParameterValue: __CICDNOOPS_PARAMETER_PROJECT__
+  ParameterValue: demoprt
 - ParameterKey: "Component"
-  ParameterValue: __CICDNOOPS_PARAMETER_COMPONENT__
+  ParameterValue: demoportal
