@@ -1,12 +1,2 @@
 - ParameterKey: "Environment"
-  ParameterValue: svint
-- ParameterKey: "Team"
-  ParameterValue: inno
-- ParameterKey: "Project"
-  ParameterValue: demoprt
-- ParameterKey: "Component"
-  ParameterValue: demoportal
-
-
-
-  
+  ParameterValue: "svint"

@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: internal
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  labels:
+    {{- range $key, $val := .Values.metadata.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+  name: dp_quarkus_api-ingress
+spec:
+  rules:
+  - host: {{ .Values.apigateway }}
+    http:
+      paths:
+      - path: /iot/rest/v1/users
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service 
+            port: 
+              number: 8080
+      - path: /iot/rest/v1/roles
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service 
+            port: 
+              number: 8080
+      - path: /iot/rest/v1/openpolicy
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service 
+            port: 
+              number: 8080
+      - path: /iot/rest/v1/api
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service
+            port:
+              number: 8080
+      - path: /iot/rest/v1/mappings
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service
+            port:
+              number: 8080
+      - path: /iot/rest/v1/tenants
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service
+            port:
+              number: 8080
+      - path: /iot/console/useradmin
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service
+            port: 
+              number: 80
+      - path: /iot/console/sysadmin
+        pathType: Prefix
+        backend:
+          service:
+            name: dp_quarkus_api-service
+            port:
+              number: 80

@@ -1,0 +1,145 @@
+# configmap
+application_properties:
+  quarkus:
+    datasource:
+      jdbc:
+        url: jdbc:postgresql://eu-west-1-pr-aurora-postgresql-iot-p101.cluster-c3mwq37i4idz.eu-west-1.rds.amazonaws.com:5432/useradmin
+        max_size: 200
+      health:
+        enabled: true
+    log:
+      level: ERROR
+      category:
+        infocert:
+          level: DEBUG
+      console:
+        format: "%X{tenantId} %X{userId} %X{InfoCert-Correlation-ID} %d{HH:mm:ss} %-5p [%c{2.}]] (%t) %s%e%n"
+  dp_quarkus_api:
+    keycloak:
+      server_url: https://keycloak.eu-west-1.praws.infocert.it/auth
+      client_id: midpki
+      username: dp_quarkus_api
+      user_initial_password: Welcome2023
+      realm: iot
+      midpki_client_scope: midpki
+    openpolicy:
+      bundle_file_name: bundle.tar.gz # the name of the bundle file
+  storage:
+    enabled: true
+    awss3:
+      enabled: true
+      region: eu-west-1
+      bucketname: iot-pr-midpki
+      foldername: apipolicies
+      hostname: midpki.infocert.digital
+    filesystem:
+      enabled: false
+  event:
+    queue:
+      type : aws #event.queue.type aws|amqp
+      aws:
+        url : https://sqs.eu-west-1.amazonaws.com/445815162879/iot_mpkiot_pr_sqs_midpki_dispatcher.fifo
+        region : eu-west-1
+      rabbit:
+        host : default
+        name : default
+        exchange:
+          name : default
+  async:
+    aws:
+      sqs:
+        enabled: true
+  write_bundle:
+    queue:
+      aws:
+        url: https://sqs.eu-west-1.amazonaws.com/445815162879/iot_mpkiot_pr_sqs_midpki_useradmin_opa
+  secrets:
+    manager:
+      type: aws
+    names:
+      quarkus:
+        datasource:
+          username: iot_mpkiot_pr_secret_useradmin_quarkus_datasource_username
+          password: iot_mpkiot_pr_secret_useradmin_quarkus_datasource_password
+      keycloak:
+        password: iot_mpkiot_pr_secret_useradmin_keycloak_password
+      rabbit:
+        username: iot_mpkiot_pr_secret_useradmin_rabbit_username
+        password: iot_mpkiot_pr_secret_useradmin_rabbit_password
+
+liquibase_properties:
+  url: jdbc:postgresql://eu-west-1-pr-aurora-postgresql-iot-p101.cluster-c3mwq37i4idz.eu-west-1.rds.amazonaws.com:5432/useradmin
+
+ui:
+  mimetypes: /etc/nginx/mime.types
+  root: /usr/share/nginx/html
+  port: 80
+  oidc:
+    admin:
+      uri: https://midpki.infocert.digital/iot/rest/v1/oidc
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "50M"
+    requests:
+      cpu: "50m"
+      memory: "50M"
+
+# deployment
+app_name: dp_quarkus_api
+container_name:
+  svc: dp_quarkus_api
+  download_opa_bundle: download-opa-bundle
+  liquibase: useradmin-liquibase
+
+ecrimage:
+  svc:
+    name: 956251722582.dkr.ecr.eu-west-1.amazonaws.com/iot-mpkiot-useradmin-svts/platform-automation/dp_quarkus_api
+    force_version: false
+  ui:
+    name: 956251722582.dkr.ecr.eu-west-1.amazonaws.com/iot-mpkiot-useradmin-svts/platform-automation/demoportal_fe
+    force_version: false
+  liquibase:
+    name: 956251722582.dkr.ecr.eu-west-1.amazonaws.com/iot-mpkiot-useradmin-svts/platform-automation/useradmin-liquibase
+    force_version: false
+  sqs_sidecar: "956251722582.dkr.ecr.eu-west-1.amazonaws.com/iot-mpkiot-queuedispatcher-svts/platform-automation/queuedispatcher:1.0.11"
+java_args: "-agentlib:jdwp=transport=dt_socket,server=y,address=*:8000,suspend=n"
+apigateway: "internal-pr-eks-factory-private-alb-1996065579.eu-west-1.elb.amazonaws.com"
+
+#Set database type, possible values are postgresql,mysql
+#Set database driver, possible values are org.postgresql.Driver, com.mysql.cj.jdbc.Driver
+database:
+  type: "postgresql"
+  driver: "org.postgresql.Driver"
+
+enable_resources: true
+
+resources:
+  limits:
+    cpu: "200m"
+    memory: "640M"
+  requests:
+    cpu: "100m"
+    memory: "640M"
+
+download_opa_bundle:
+  env_vars:
+    AWS_REGION: "eu-west-1"
+    MIDPKI_BACKEND_URL: "http://localhost:8080/iot/rest/v1/openpolicy"
+    MIDPKI_BACKEND_SVC_METHOD: POST
+    SQS_QUEUE_NAME: "iot_mpkiot_pr_sqs_midpki_useradmin_opa"
+    SQS_MAX_MESSAGES: 1
+    SQS_POLL_WAIT_MILLISECONDS: 10
+    SQS_POLL_SLEEP_SECONDS: "60s"
+  resources:
+    limits:
+      cpu: "50m"
+      memory: "50M"
+    requests:
+      cpu: "50m"
+      memory: "50M"
+
+kubernetes:
+  config:
+    secrets:
+      name: useradmin-secrets

@@ -1,0 +1,157 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoportal_be
+  labels:
+    {{- range $key, $val := .Values.metadata.labels }}
+      {{ $key }}: {{ $val }}
+      {{- end }}
+      app: {{ .Values.app_name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app_name }}
+  template:
+    metadata:
+      annotations:
+        newrelic/scrape: 'true'
+        prometheus.io/port: '8080'
+        prometheus.io/path: '/iot/rest/v1/q/metrics'
+      labels:
+        app: {{ .Values.app_name }}
+    spec:
+      volumes:
+        - name: volume1
+          configMap:
+            items:
+              - key: application.properties
+                path: application.properties
+              - key: nginx.conf
+                path: nginx.conf
+              - key: configuration.json
+                path: configuration.json
+              - key: liquibase.properties
+                path: liquibase.properties
+            name: dp_quarkus_api-configmap
+        - name: volume2
+          emptyDir: {}
+
+        # Volume where secrets are mounted, if existing
+        - name: secrets-volume
+          secret:
+            secretName: "{{ .Values.kubernetes.config.secrets.name }}"
+            optional: true
+
+      initContainers:
+      - name: {{ .Values.container_name.liquibase }}
+        args:
+        - {{ .Values.application_properties.secrets.names.quarkus.datasource.username }}
+        - {{ .Values.application_properties.secrets.names.quarkus.datasource.password }}
+        - {{ .Values.liquibase_properties.url }}
+        - {{ .Values.application_properties.secrets.manager.type }}
+        - /liquibase/secrets.properties
+        - --classpath=/liquibase/changelog:/liquibase/lib/{{.Values.database.type}}.jar --driver={{.Values.database.driver}}
+        image: "{{ .Values.ecrimage.liquibase.name }}:{{ .Chart.Version }}"
+        volumeMounts:
+        - mountPath: /liquibase/changelog/liquibase.properties
+          name: volume1
+          subPath: liquibase.properties
+        - mountPath: /liquibase/secrets.properties
+          name: secrets-volume
+          subPath: secrets.properties
+          readOnly: true
+        resources: {}
+      containers:
+        #ui
+        - name: demoportal_fe
+          {{ if .Values.ecrimage.ui.force_version }}
+          image: "{{ .Values.ecrimage.ui.name }}"
+          {{ else }}
+          image: "{{ .Values.ecrimage.ui.name }}:{{ .Chart.Version }}"
+          {{ end }}
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: volume1
+              subPath: nginx.conf
+            - mountPath: /usr/share/nginx/html/iot/console/useradmin/assets/config/user-admin-configuration.json
+              name: volume1
+              subPath: configuration.json
+            - mountPath: /usr/share/nginx/html/iot/console/sysadmin/assets/config/user-admin-configuration.json
+              name: volume1
+              subPath: configuration.json
+          ports:
+            - containerPort: {{ .Values.ui.port }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.ui.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 120
+            timeoutSeconds: 60
+          resources:
+            requests:
+              memory: {{ .Values.ui.resources.requests.memory }}
+              cpu: {{ .Values.ui.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.ui.resources.limits.memory }}
+              cpu: {{ .Values.ui.resources.limits.cpu }}
+        #svc
+        - name: {{ .Values.container_name.svc }}
+          {{ if .Values.ecrimage.svc.force_version }}
+          image: "{{ .Values.ecrimage.svc.name }}"
+          {{ else }}
+          image: "{{ .Values.ecrimage.svc.name }}:{{ .Chart.Version }}"
+          {{ end }}
+          imagePullPolicy: IfNotPresent
+          args:
+            - {{ .Values.database.type }}
+            - {{ .Values.java_args }}
+          volumeMounts:
+            - mountPath: /service/config/application.properties
+              name: volume1
+              subPath: application.properties
+            - mountPath: /service/config/secrets.properties
+              name: secrets-volume
+              subPath: secrets.properties
+              readOnly: true
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+        # sqs opa download bundle sidecar
+        - name: {{ .Values.container_name.download_opa_bundle }}
+          image: "{{ .Values.ecrimage.sqs_sidecar }}"
+          imagePullPolicy: Always
+          env:
+            - name: MIDPKI_BACKEND_URL
+              value: {{ .Values.download_opa_bundle.env_vars.MIDPKI_BACKEND_URL }}
+            - name: MIDPKI_BACKEND_SVC_METHOD
+              value: {{ .Values.download_opa_bundle.env_vars.MIDPKI_BACKEND_SVC_METHOD }}
+            - name: SQS_QUEUE_NAME
+              value: {{ .Values.download_opa_bundle.env_vars.SQS_QUEUE_NAME }}
+            - name: SQS_MAX_MESSAGES
+              value: {{ .Values.download_opa_bundle.env_vars.SQS_MAX_MESSAGES | quote }}
+            - name: SQS_POLL_WAIT_SECONDS
+              value: {{ .Values.download_opa_bundle.env_vars.SQS_POLL_WAIT_MILLISECONDS | quote }}
+            - name: SQS_POLL_SLEEP_SECONDS
+              value: {{ .Values.download_opa_bundle.env_vars.SQS_POLL_SLEEP_SECONDS }}
+            - name: AWS_REGION
+              value: {{ .Values.download_opa_bundle.env_vars.AWS_REGION }}
+          {{ if .Values.enable_resources }}
+          resources:
+            requests:
+              memory: {{ .Values.download_opa_bundle.resources.requests.memory }}
+              cpu: {{ .Values.download_opa_bundle.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.download_opa_bundle.resources.limits.memory }}
+              cpu: {{ .Values.download_opa_bundle.resources.limits.cpu }}
+          {{ end }}
+
+    

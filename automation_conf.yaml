@@ -1,10 +1,39 @@
-release_version: 0.1.0
+release_version: 1.0.47
 build:
-  custom_image: false
-  custom_image_version: "0.1"
+  custom_image: "956251722582.dkr.ecr.eu-west-1.amazonaws.com/iot-mpkiot-buildimagejn-svts/platform-automation/build-image-java-npm"
+  custom_image_version: "1.0.0"
+  kubedock: true
 pre_deploy:
   custom_image: false
   custom_image_version: "0.1"
 post_deploy:
   custom_image: false
   custom_image_version: "0.1"
+#cache:
+  #- "src/demoportal_fe/node_modules.tar"
+#pipeline_scan:
+#  severity: "Medium"
+#  target_path: src/dp_quarkus_api/dp_quarkus_api-deploy-rest/target/quarkus-app/quarkus/generated-bytecode.jar # da creare nel pom il jar senza versione
+#  project: "midpki/useradmin"
+#  audit: true
+#policy_scan:
+#  scan_include_pattern:      generated-bytecode.jar
+#  upload_include_pattern:    src/dp_quarkus_api/dp_quarkus_api-deploy-rest/target/quarkus-app/**/*.jar, src/dp_quarkus_api/dp_quarkus_api-deploy-rest/target/quarkus-app/*.jar #ant style
+#  project:                   useradmin
+#  application_name:          PKI
+#  create_sandbox:            false # crearla da console e mettere create_sandbox = false
+#  debug:                     true
+#  sandbox_name:              midpki_useradmin
+#
+
+release_detail:
+  enabled: true
+  fix_version: "2023r8"
+  create_story: false
+
+export_custom_artifacts:
+  images:
+    ecr_to_public_artifactory:
+    - logical_name: "useradmin-liquibase"
+    - logical_name: "demoportal_fe-rootless"
+
