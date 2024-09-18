@@ -1,0 +1,90 @@
+<div class="ic1-header-wrapper">
+  <div class="ic1-header">
+    <div class="ic1-header-info">
+      <div class="ic1-brand-infocert-default"></div>
+      <div class="ic1-separator ic1-separator-vertical"></div>
+      <div class="ic1-header-title">Demo Center</div>
+    </div>
+    
+    
+    <div class="ic1-col-3 flex items-center justify-end">
+      @if (router.url != '/login') {
+        <div class="relative pr-2">  
+          <button type="button" class="ic1-btn ic1-btn-mini ic1-btn-icon ic1-btn-header" data-toggle="ic1-collapse" data-target="ic1-collapse" aria-describedby="ic1-dropdown">
+            <i class="ic1-icon ic1-icon-outlined" aria-hidden="true" role="button">flag</i>
+          </button>
+          
+          <div id="ic1-dropdown" class="ic1-dropdown ic1-dropdown-down ic1-collapse absolute top-[45px] right-[8px]">
+            <ul class="ic1-dropdown-list">
+              <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                <span role="radio" aria-checked="false">
+                  <div class="ic1-dropdown-item-rows">
+                    <span>English</span>
+                  </div>
+                </span>
+              </li>
+              <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                <span role="radio" aria-checked="false">
+                  <div class="ic1-dropdown-item-rows">
+                    <span>Italian</span>
+                  </div>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ic1-form-group py-[24px] mb-0">
+          <div class="ic1-select-wrapper">
+            <div class="ic1-select ic1-placeholder content-center !h-[3rem]" data-toggle="ic1-collapse" data-target="ic1-collapse"> alessandra.donzelli&#64;email.com 
+            </div>
+            <div id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown ic1-collapse">
+              <ul class="ic1-dropdown-list">
+                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                  <span role="radio" aria-checked="false">
+                    <div class="ic1-dropdown-item-rows">
+                      <span routerLink="/profile-settings" class="!flex !justify-start">
+                        <i
+                        class="ic1-icon ic1-icon-outlined ic1-mr-16"
+                        aria-hidden="true"
+                        role="button"
+                        >group</i>
+                        <span>Profilo</span>
+                      </span>
+                    </div>
+                  </span>
+                </li>
+                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                  <span role="radio" aria-checked="false">
+                    <div class="ic1-dropdown-item-rows">
+                      <span class="!flex !justify-start">
+                        <i
+                        class="ic1-icon ic1-icon-outlined ic1-mr-16"
+                        aria-hidden="true"
+                        role="button"
+                        >logout</i>
+                        <span>Esci</span>
+                      </span>
+                    </div>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="ic1-row justify-right">
+            <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+              <span>Assistenza</span>
+            </button> 
+            <div  class="ic1-mr-8 ic1-ml-8 border-r border-ic1-gray-light border-solid">
+            </div>
+            <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+              <span>Documentazione</span>
+            </button>
+          </div>
+        }   
+      </div>
+    </div>
+  </div>
+  

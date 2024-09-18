@@ -1,0 +1,65 @@
+<div class="ic1-row">
+    <div class="ic1-col-12"> 
+
+      @if(!isNewCard){
+        <div class="ic1-card ic1-card-elevated ic1-card-icon-left"
+        [ngStyle]="{'background-color': isActive ? '#f4f6f9' : '#fff','border-color': isActive ? '#016F98' : '#EDEFF0'}">
+        
+         <div class="ic1-card-content">
+           <div class="ic1-card-header content-left flex">
+             <div class="ic1-card-title">
+               <div class="ic1-card-icon ic1-mr-16">
+                 <i
+                   class="ic1-icon-custom-phone-line"
+                   aria-hidden="true"
+                   role="button"
+                 ></i>
+               </div>
+              
+               {{title}}
+               <i style="right: 16px;"
+                 class="ic1-icon ic1-icon-outlined absolute"
+                 aria-label="procedi"
+                 role="button"
+               >
+                 east
+               </i>
+             </div>
+           </div>
+           <div *ngIf="isActive" class="ic1-card-body">
+             <div class="ic1-card-text" style="font-size: small;">
+               {{text}}
+             </div>
+           </div>
+         </div>
+       </div>
+      } @else {
+        <div class="ic1-card ic1-card-elevated ic1-card-icon-left" style="margin: 8px 16px;  margin-bottom: -12px;"
+        [ngStyle]="{'background-color': 'transparent','border':'none', 'box-shadow': isActive ? '  rgba(237, 239, 240, 0.5) 0 0rem 2rem 0px' : 'none'}">
+        <!-- inset rgba(237, 239, 240, 0.5) 0 0rem 2rem 0px -->
+          <div class="ic1-card-content">
+           <div class="ic1-card-header !mb-0">
+             <div class="ic1-card-title w-100" [ngClass]="{'!text-2xl': isActive }">
+                {{title}}
+              
+       
+               <div class="ic1-card-icon !mr-0">
+                <i
+                  class="ic1-icon-custom-phone-line"
+                  aria-hidden="true"
+                  role="button"
+                ></i>
+              </div>
+             </div>
+           </div>
+           <div *ngIf="isActive" class="ic1-card-body">
+             <div class="ic1-card-text" style="font-size: small;">
+               {{text}}
+             </div>
+           </div>
+         </div>
+       </div>
+      }
+  
+    </div>
+  </div>

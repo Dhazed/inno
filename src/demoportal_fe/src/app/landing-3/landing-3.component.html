@@ -1,0 +1,230 @@
+<div class="ic1-ml-72 ic1-mr-72 ic1-mb-64">
+    <div class="ic1-row ic1-mr-24 ic1-ml-24 ic1-pt-32 ic1-pb-32">
+        <div class="ic1-col-1 ic1-pb-0">
+            <h2 class="typewriter ic1-pb-0" [class.show-caret]="showCaretTitle">{{ typedTitle }}</h2>
+        </div>
+        <div class="ic1-col-12 ic1-pt-0">
+            <p *ngIf="showDescription" class="typewriter" [class.show-caret]="showCaretDescription">{{ typedDescription }}</p>
+        </div>
+    </div>
+    <div class="ic1-row menu-container" [class.menu-open]="isMenuOpen">
+        <div class="ic1-col-3 ic1-pr-0 menu !px-8" [@slideInFromLeft]>
+            <div id="diamond-shield"></div>
+            <div id="trapezoid"></div>
+            <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+                <app-card-menu (click)="selectService('1')" 
+                [title]="'Servizi'"
+                [text]="'Demo dei singoli servizi'"
+                [isNewCard]="true"
+                [isActive]="activeService == '1'"> </app-card-menu> 
+            </div>
+            <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+                <app-card-menu (click)="selectService('2')" 
+                [title]="'Processi onboarding'"
+                [text]="'Demo dei singoli servizi'"
+                [isNewCard]="true"
+                [isActive]="activeService == '2'"> </app-card-menu>
+            </div>
+            <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+                <app-card-menu (click)="selectService('3')" 
+                [title]="'Identità notificate'"
+                [isNewCard]="true"
+                [isActive]="activeService == '3'"> </app-card-menu>
+            </div>
+            <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+                <app-card-menu (click)="selectService('4')" 
+                [title]="'Processi customer engagement'"
+                [isNewCard]="true"
+                [isActive]="activeService == '4'"> </app-card-menu>
+            </div>
+        </div>
+        <div class="ic1-col-12 ic1-pl-0 ic1-pb-o menu-content-wrapper pointer-events-none">
+            <div class="ic1-row menu-content ">
+                <div class="ic1-col-1 !p-0 pointer-events-auto">
+                    <button (click)="toggleMenu()" class="menu-btn">{{isMenuOpen ?  '✕' : '☰'}}</button>
+                </div>
+                <div class="ic1-col-11 text-center mb-7">
+                    
+                    @switch (activeService) {
+                        @case ("1") {
+                            <h2 class="slide-in" [@slideInService]>Servizi</h2>
+                        }
+                        @case ("2") {
+                            <h2 class="slide-in" [@slideInService]>Processi onboarding</h2>
+                        }
+                        @case ("3") {
+                            <h2 class="slide-in" [@slideInService]>Identità notificate</h2>
+                        }
+                        @case ("4") {
+                            <h2 class="slide-in" [@slideInService]>Processi customer engagement</h2>
+                        }
+                    }
+                </div>
+                
+                <div *ngIf="activeService == '1'" class="ic1-col-12 ic1-p-0 pointer-events-auto text-center">
+                    <div class="ic1-row" [@slideInFromTop]>
+                        <div class="ic1-col-3 card-container">
+                            <div class="card-flip !h-auto">
+                                <div class="card-front !h-auto">
+                                    <app-card [cssClasses]="'border-0'"
+                                    [cardImage]="'image0.png'"
+                                    [title]="'Customer onboarding with contract sign (SelfID)'"
+                                    >    </app-card>
+                                </div>
+                                <div class="card-back ic1-row justify-center content-center">
+                                    <div class="ic1-col-12">
+                                        <p>Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract</p>
+                                    </div>
+                                    <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                        <button routerLink="/document-recognition" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                                            <span>Vai alla demo</span>
+                                            <i
+                                            class="ic1-icon ic1-icon-after ic1-icon-outlined"
+                                            aria-hidden="true"
+                                            role="button">east </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ic1-col-3 card-container">
+                            <div class="card-flip">
+                                <div class="card-front h-[90%]">
+                                    <app-card [cssClasses]="'border-0'"
+                                    [cardImage]="'image0.png'"
+                                    [title]="'Customer onboarding with contract sign (SelfID)'"
+                                    [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                </div>
+                                <div class="card-back ic1-row justify-center content-center">
+                                    <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                        <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                                            <span>Vai alla demo</span>
+                                            <i
+                                            class="ic1-icon ic1-icon-after ic1-icon-outlined"
+                                            aria-hidden="true"
+                                            role="button">east </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ic1-col-3 card-container">
+                            <div class="card-flip">
+                                <div class="card-front h-[90%]">
+                                    <app-card [cssClasses]="'border-0'"
+                                    [cardImage]="'image0.png'"
+                                    [title]="'Customer onboarding with contract sign (SelfID)'"
+                                    [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                </div>
+                                <div class="card-back ic1-row justify-center content-center">
+                                    <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                        <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                                            <span>Vai alla demo</span>
+                                            <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ic1-col-3 card-container">
+                            <div class="card-flip">
+                                <div class="card-front h-[90%]">
+                                    <app-card [cssClasses]="'border-0'"
+                                    [cardImage]="'image0.png'"
+                                    [title]="'Customer onboarding with contract sign (SelfID)'"
+                                    [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                </div>
+                                <div class="card-back ic1-row justify-center content-center">
+                                    <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                        <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                                            <span>Vai alla demo</span>
+                                            <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ic1-col-3 card-container">
+                            <div class="card-flip">
+                                <div class="card-front h-[90%]">
+                                    <app-card [cssClasses]="'border-0'"
+                                    [cardImage]="'image0.png'"
+                                    [title]="'Customer onboarding with contract sign (SelfID)'"
+                                    [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                </div>
+                                <div class="card-back ic1-row justify-center content-center">
+                                    <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                        <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                                            <span>Vai alla demo</span>
+                                            <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>                        </div>
+                            <div class="ic1-col-3 card-container">
+                                <div class="card-flip">
+                                    <div class="card-front h-[90%]">
+                                        <app-card [cssClasses]="'border-0'"
+                                        [cardImage]="'image0.png'"
+                                        [title]="'Customer onboarding with contract sign (SelfID)'"
+                                        [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                    </div>
+                                    <div class="card-back ic1-row justify-center content-center">
+                                        <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                                            <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                                                <span>Vai alla demo</span>
+                                                <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>                        </div>
+                            </div>
+                        </div>
+                        <div *ngIf="activeService == '2'" class="ic1-col-12 ic1-p-0 pointer-events-auto text-center">
+                            <div class="ic1-row" [@slideInFromTop]>
+                                <div class="ic1-col-3 card-container">
+                                    <div class="card-flip">
+                                        <div class="card-front">
+                                            <app-card [cssClasses]="'border-0'"
+                                            [cardImage]="'image0.png'"
+                                            [title]="'Customer onboarding with contract sign (SelfID)'"
+                                            [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'">    </app-card>
+                                        </div>
+                                        <div class="card-back ic1-row">
+                                            <div class="ic1-col-12 ic1-p-16">
+                                                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                                                    <span>Vai alla demo</span>
+                                                    <i
+                                                    class="ic1-icon ic1-icon-after ic1-icon-outlined"
+                                                    aria-hidden="true"
+                                                    role="button">east </i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ic1-col-3 card-container">
+                                    <app-card [cssClasses]="'border-0'" [cardImage]="'image1.svg'" [buttonLabel]="'Vai alla demo'" [title]="'Customer onboarding with contract sign (SelfID)'" [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'"></app-card>
+                                </div>
+                                <div class="ic1-col-3 card-container">
+                                    <app-card [cssClasses]="'border-0'" [cardImage]="'image2.svg'" [buttonLabel]="'Vai alla demo'" [title]="'Customer onboarding with contract sign (SelfID)'" [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'"></app-card>
+                                </div>
+                                <div class="ic1-col-3 card-container">
+                                    <app-card [cssClasses]="'border-0'" [cardImage]="'image3.svg'" [buttonLabel]="'Vai alla demo'" [title]="'Customer onboarding with contract sign (SelfID)'" [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'"></app-card>
+                                </div>
+                                <div class="ic1-col-3 card-container">
+                                    <app-card [cssClasses]="'border-0'" [cardImage]="'image4.svg'" [buttonLabel]="'Vai alla demo'" [title]="'Customer onboarding with contract sign (SelfID)'" [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'"></app-card>
+                                </div>
+                                <div class="ic1-col-3 card-container">
+                                    <app-card [cssClasses]="'border-0'" [cardImage]="'image5.svg'" [buttonLabel]="'Vai alla demo'" [title]="'Customer onboarding with contract sign (SelfID)'" [text]="'Onboarding of a customer by uploading and reading documents nand acknowledging liveness and signing the contract'"></app-card>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="activeService == '3'" class="ic1-col-12 ic1-p-0 pointer-events-auto text-center">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            

@@ -1,0 +1,19 @@
+<div class="ic1-step-counter items-center">
+    <div *ngFor="let step of steps; let i = index" class="ic1-step-current ic1-px-0 ic1-step !bg-transparent step-number !border-0" 
+        [class.next-step]="currentStep + 1 === i + 1">
+      <span class="ic1-step-number step-number" [class.next-step-number]="currentStep + 1 === i + 1 || i + 1 < currentStep">
+
+        {{ i + 1 >= currentStep  ? i + 1  :''}}
+        <i *ngIf="i + 1 < currentStep" class="ic1-icon ic1-icon-outlined"  aria-hidden="true">check</i>
+
+    </span>
+  
+      <span *ngIf="currentStep === i + 1 || currentStep + 1 === i + 1" class="ic1-step-name text-[0.875rem]">
+        {{ step.name }}
+      </span>
+      <i *ngIf="i < steps.length - 1" class="ic1-icon ic1-icon-outlined ic1-pl-8"  aria-hidden="true">chevron_right</i>
+
+    </div>
+  
+  </div>
+  

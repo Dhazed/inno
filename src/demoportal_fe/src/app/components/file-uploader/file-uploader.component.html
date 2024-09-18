@@ -1,0 +1,88 @@
+<div class="ic1-file-upload-wrapper" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+    <div class="ic1-file-upload ic1-py-16">
+        <input type="file" id="ic1-file-upload" name="file" (change)="onFileSelected($event)" accept="image/*" style="display: none;" />
+        <label for="ic1-file-upload" class="ic1-file-upload-message">
+            <i class="ic1-icon-custom-upload" aria-hidden="true" role="button"></i>
+            <span class="ic1-file-upload-message-row-one">
+                Trascina e rilascia il tuo file qui o
+            </span>
+            <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-text ic1-file-upload-btn" (click)="triggerFileUpload()">
+                <span>carica un file</span>
+            </button> o
+            <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-text ic1-file-upload-btn" (click)="triggerWebcam()">
+                <span>scatta una foto</span>
+            </button>
+        </label>
+    </div>
+</div>
+
+<app-modal (close)="closeModal()" [title]="'Visualizza il documento'" [isVisible]="isVisibleImageModal">
+    <div *ngIf="!showFileUpload" class="ic1-row justify-center" style="padding: 1rem 9rem;border: 2px dashed #979797;">
+        <div class="ic1-col-12">
+            <img [src]="imageSrc" alt="Anteprima dell'immagine" class="preview-image" />
+        </div>
+        <div class="ic1-col-12 flex justify-end">
+            <button (click)="removeFile()" type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+                <span>Rimuovi</span>
+            </button>
+        </div>
+    </div>
+    
+    <div *ngIf="showFileUpload" class="ic1-file-upload-wrapper" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+        <div class="ic1-file-upload">
+            <input type="file" id="ic1-file-upload-2" name="file" (change)="onFileSelected($event, '2')" accept="image/*" style="display: none;" />
+            <label for="ic1-file-upload-2" class="ic1-file-upload-message">
+                <i class="ic1-icon-custom-upload" aria-hidden="true" role="button"></i>
+                <span class="ic1-file-upload-message-row-one">
+                    Trascina e rilascia il tuo file qui o
+                </span>
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-text ic1-file-upload-btn" (click)="triggerFileUpload('2')">
+                    <span>carica un file</span>
+                </button>
+            </label>
+        </div>
+    </div>
+    
+    <div class="ic1-row" modal-footer>
+        <div class="ic1-col-12 flex justify-end">
+            <button (click)="closeModal()" type="button" class="ic1-mr-24 ic1-btn ic1-btn-sm ic1-btn-secondary">
+                <span>Annulla</span>
+            </button>
+            <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-tertiary">
+                <span>Conferma</span>
+            </button>
+        </div>
+    </div>
+   
+    
+    
+</app-modal>
+
+<app-modal *ngIf="isVisibleWebcamModal" (close)="closeModal()" [title]="'Scatta una foto'" [isVisible]="isVisibleWebcamModal">
+    <div class="ic1-row justify-center w-[50vw]" style="padding: 1rem 5rem;border: 2px dashed #979797;">
+        <div class="ic1-col-12 flex justify-center">
+            <webcam *ngIf="!webcamImage" (imageCapture)="handleImage($event)"  [trigger]="triggerObservable"></webcam>
+            
+            <div class="snapshot ic1-row" *ngIf="webcamImage">
+                <div class="ic1-col-12 ic1-p-0 flex justify-center">
+                    <img [src]="webcamImage.imageAsDataUrl"/>
+                </div>
+                <div class="ic1-col-12 flex justify-end">
+                    <button (click)="removeSnapshot()" type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+                        <span>Rimuovi</span>
+                    </button>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    <div modal-footer class="flex justify-center w-full">
+        <button *ngIf="!webcamImage" (click)="triggerSnapshot()" type="button" class="ic1-btn ic1-btn-standard ic1-btn-primary ic1-btn-icon" >
+            <i class="ic1-icon ic1-icon-outlined" aria-hidden="true" role="button">photo_camera</i>
+        </button>
+        <button *ngIf="webcamImage" type="button" class="ic1-btn ic1-btn-sm ic1-btn-tertiary">
+            <span>Conferma</span>
+        </button>
+    </div>
+    
+</app-modal>

@@ -1,0 +1,17 @@
+.step-number {
+    color: white;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    background: #0B2E4F;
+    border-radius: 4px;
+    align-content: center;
+    
+}
+
+.next-step {
+  color: #627993 !important;
+}
+.next-step-number {
+  background-color: #627993 !important;
+}

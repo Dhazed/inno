@@ -1,0 +1,76 @@
+<div class="ic1-row h-[110vh] justify-center bg-cover" style="background-image: url('fingerprint.jpg');"> 
+    <div class="ic1-col-4 self-center">
+        <app-card content="true" [cssClasses]="'!border-1 !border-ic1-gray'">
+            <div class="ic1-row justify-center"> 
+                <div class="ic1-col-12 ic1-pt-24 text-center">
+                    <h3>Accedi</h3>
+                </div>
+                <div class="ic1-separator ic1-my-16"></div>
+                <div class="ic1-col-12 text-center" >
+                    <div class="ic1-form-group">
+                        <label for="input-id" class="">Indirizzo e-mail</label>
+                        <input
+                        type="text"
+                        id="input-id"
+                        class="ic1-input"
+                        placeholder="Inserisci indirizzo e-mail"
+                        />
+                    </div>
+                </div>
+                
+                <div class="ic1-col-12 text-center" >
+                    <div class="ic1-form-group" data-target="ic1-password">
+                        <label for="input-id" class="">Inserisci password</label>
+                        <input
+                        type="password"
+                        id="input-id"
+                        class="ic1-password"
+                        placeholder="Inserisci password"
+                        />
+                        <i
+                        class="ic1-icon-alt"
+                        data-toggle="ic1-password"
+                        aria-hidden="true"
+                        role="button"
+                        >
+                        visibility
+                    </i>
+                </div>
+            </div>
+            
+            <div class="ic1-col-12">
+                <div class="ic1-form-group ic1-form-check">
+                    <input type="checkbox" id="ic1-checkbox" class="ic1-checkbox" />
+                    <label for="ic1-checkbox">
+                        <span class="ic1-label-text">Mantieni l'accesso</span>
+                    </label>
+                </div>
+            </div> 
+            
+            <div class="ic1-col-12">
+                <a href="">Hai dimenticato la password?</a>
+            </div>
+
+            <div class="ic1-col-6 ic1-pb-24 ic1-pt-24">
+                <button type="button" class="!justify-center ic1-btn-block ic1-btn ic1-btn-md ic1-btn-secondary ic1-btn-block">
+                    <span>Annulla</span>
+                </button>
+            </div>
+            <div class="ic1-col-6 ic1-pb-24 ic1-pt-24">
+                <button routerLink="/landing3" type="button" class="!justify-center ic1-btn-block ic1-btn ic1-btn-md ic1-btn-primary ic1-btn-block">
+                    <span>Accedi</span>
+                </button>
+            </div>
+            
+        </div>
+    </app-card>
+</div>
+<div class="ic1-col-12 content-end">
+    <div class="ic1-row bg-transparent p-4 ">
+        <div class="ic1-col-8">Infocert, il futuro digitale è adesso</div>
+        <div class="ic1-col-4">© 2022 InfoCert S.p.a  - P.IVA 07945211006</div>
+    </div>
+</div>
+   
+</div>
+
