@@ -1,27 +1,28 @@
-<div class="ic1-container h-[100vh]">
+<div class="ic1-container min-h-[100vh]">
     <div class="ic1-row">
-        <div class="ic1-col-12">
+        <div class="ic1-col-12 ic1-mt-16">
             <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
                 <li class="ic1-breadcrumb-item">
-                    <a routerLink="/landing3" aria-level="1" role="menuitem">Homepage</a>
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1" role="menuitem">Homepage</a>
                 </li>
                 <li class="ic1-breadcrumb-item">
                     <a aria-level="2" role="menuitem" aria-current="page">Profilo</a>
                 </li>
             </ul>
         </div>
-        <div class="ic1-col-12 ic1-my-24">
+        <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
             <h2>Profilo</h2>
         </div>
         <div class="ic1-col-12 ic1-mb-16">
             <div class="ic1-col-10 ic1-px-0">
-                <app-toast [hideClose]="true" [text]="'Inserisci i dati della persona che utilizza quest\'account'"></app-toast>
+                <app-toast [hideClose]="true"
+                    [text]="'Inserisci i dati della persona che utilizza quest\'account'"></app-toast>
             </div>
             <div class="ic1-row ic1-col-10 ic1-mt-8 border border-ic1-gray-light rounded-[5px]">
-                
                 <div class="ic1-col-12 flex justify-between">
                     <p>Dati personali</p>
-                    <button (click)="isVisibleEditProfileModal = true" type="button" class="ic1-btn ic1-btn-sm ic1-btn-text ">
+                    <button (click)="isVisibleEditProfileModal = true" type="button"
+                        class="ic1-btn ic1-btn-sm ic1-btn-text ">
                         <span>Modifica</span>
                     </button>
                 </div>
@@ -35,6 +36,12 @@
                         </div>
                         <div class="ic1-col-12 ic1-pb-0">
                             <b class="font-semibold">Numero di telefono</b>
+                        </div>
+                        <div class="ic1-col-12 ic1-mb-8">
+                            -
+                        </div>
+                        <div class="ic1-col-12 ic1-pb-0">
+                            <b class="font-semibold">Azienda</b>
                         </div>
                         <div class="ic1-col-12 ic1-mb-8">
                             -
@@ -54,65 +61,66 @@
                     <div class="ic1-col-12 ic1-mb-8">
                         -
                     </div>
+                    <div class="ic1-col-12 ic1-pb-0">
+                        <b>Gruppo</b>
+                    </div>
+                    <div class="ic1-col-12 ic1-mb-8">
+                        -
+                    </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
-    <app-modal *ngIf="isVisibleEditProfileModal" (close)="closeModal()" [subTitle]="'Riepilogo dei dati dell’account InfoCert'" [title]="'Modifica dati personali'" [isVisible]="isVisibleEditProfileModal">
+    <app-modal *ngIf="isVisibleEditProfileModal" (close)="closeModal()"
+        [subTitle]="'Riepilogo dei dati dell’account InfoCert'" [title]="'Modifica dati personali'"
+        [isVisible]="isVisibleEditProfileModal">
         <div class="ic1-row">
             <div class="ic1-col-6">
                 <div class="ic1-form-group">
                     <label for="input-id" class="">Nome</label>
-                    <input
-                    type="text"
-                    id="input-id"
-                    class="ic1-input"
-                    placeholder="Inserisci il tuo nome"
-                    />
+                    <input type="text" id="input-id" class="ic1-input" placeholder="Inserisci il tuo nome" />
                 </div>
             </div>
             <div class="ic1-col-6">
                 <div class="ic1-form-group">
                     <label for="input-id" class="">Cognome</label>
-                    <input
-                    type="text"
-                    id="input-id"
-                    class="ic1-input"
-                    placeholder="Inserisci il tuo cognome"
-                    />
+                    <input type="text" id="input-id" class="ic1-input" placeholder="Inserisci il tuo cognome" />
                 </div>
             </div>
             <div class="ic1-col-6">
                 <div class="ic1-form-group">
                     <label for="input-id" class="">Cellulare</label>
-                    <input
-                    type="text"
-                    id="input-id"
-                    class="ic1-input"
-                    placeholder="Inserisci il numero"
-                    />
+                    <input type="text" id="input-id" class="ic1-input" placeholder="Inserisci il numero" />
                 </div>
             </div>
             <div class="ic1-col-6">
                 <div class="ic1-form-group">
                     <label for="input-id" class="">Indirizzo e-mail</label>
-                    <input
-                    type="text"
-                    id="input-id"
-                    class="ic1-input"
-                    placeholder="Inserisci il tuo indirizzo e-mail"
-                    />
+                    <input type="text" id="input-id" class="ic1-input"
+                        placeholder="Inserisci il tuo indirizzo e-mail" />
+                </div>
+            </div>
+            <div class="ic1-col-6">
+                <div class="ic1-form-group">
+                    <label for="input-id" class="">Azienda</label>
+                    <input type="text" id="input-id" class="ic1-input" placeholder="Inserisci la tua azienda" />
+                </div>
+            </div>
+            <div class="ic1-col-6">
+                <div class="ic1-form-group">
+                    <label for="input-id" class="">Gruppo</label>
+                    <input type="text" id="input-id" class="ic1-input" placeholder="Inserisci il tuo gruppo" />
                 </div>
             </div>
         </div>
         <div class="ic1-row" modal-footer>
             <div class="ic1-col-12 flex justify-end">
                 <button (click)="closeModal()" type="button" class="ic1-mr-24 ic1-btn ic1-btn-sm ic1-btn-secondary">
-                    <span>Annulla</span>
+                    <span>{{ 'cmkpL|Demo_CiePhonebtn_Cancel' | translate}}</span>
                 </button>
-                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-tertiary">
-                    <span>Salva</span>
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                    <span>{{ 'cmtZL0|Demo_btn_confirm' | translate}}</span>
                 </button>
             </div>
         </div>

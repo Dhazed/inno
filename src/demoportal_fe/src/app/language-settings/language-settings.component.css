@@ -1,0 +1,15 @@
+.toggle-icon {
+    border: 1px solid #c2d1d9;
+    background: #ffffff;
+    border-radius: 4px;
+    align-content: center;
+    text-align: center;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.7rem;
+}
+
+.key-label-text:active {
+    
+    background-color: #F4F6F9;
+}

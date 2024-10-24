@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demoportal_be
+  name: demoportal-deployment
   labels:
     {{- range $key, $val := .Values.metadata.labels }}
       {{ $key }}: {{ $val }}
@@ -15,9 +15,6 @@ spec:
   template:
     metadata:
       annotations:
-        newrelic/scrape: 'true'
-        prometheus.io/port: '8080'
-        prometheus.io/path: '/iot/rest/v1/q/metrics'
       labels:
         app: {{ .Values.app_name }}
     spec:
@@ -29,46 +26,17 @@ spec:
                 path: application.properties
               - key: nginx.conf
                 path: nginx.conf
-              - key: configuration.json
-                path: configuration.json
-              - key: liquibase.properties
-                path: liquibase.properties
-            name: dp_quarkus_api-configmap
+            name: demoportal-configmap
         - name: volume2
           emptyDir: {}
 
-        # Volume where secrets are mounted, if existing
-        - name: secrets-volume
-          secret:
-            secretName: "{{ .Values.kubernetes.config.secrets.name }}"
-            optional: true
-
-      initContainers:
-      - name: {{ .Values.container_name.liquibase }}
-        args:
-        - {{ .Values.application_properties.secrets.names.quarkus.datasource.username }}
-        - {{ .Values.application_properties.secrets.names.quarkus.datasource.password }}
-        - {{ .Values.liquibase_properties.url }}
-        - {{ .Values.application_properties.secrets.manager.type }}
-        - /liquibase/secrets.properties
-        - --classpath=/liquibase/changelog:/liquibase/lib/{{.Values.database.type}}.jar --driver={{.Values.database.driver}}
-        image: "{{ .Values.ecrimage.liquibase.name }}:{{ .Chart.Version }}"
-        volumeMounts:
-        - mountPath: /liquibase/changelog/liquibase.properties
-          name: volume1
-          subPath: liquibase.properties
-        - mountPath: /liquibase/secrets.properties
-          name: secrets-volume
-          subPath: secrets.properties
-          readOnly: true
-        resources: {}
       containers:
         #ui
-        - name: demoportal_fe
-          {{ if .Values.ecrimage.ui.force_version }}
-          image: "{{ .Values.ecrimage.ui.name }}"
+        - name: demoportal-fe
+          {{ if .Values.ecrimage.fe.force_version }}
+          image: "{{ .Values.ecrimage.fe.name }}"
           {{ else }}
-          image: "{{ .Values.ecrimage.ui.name }}:{{ .Chart.Version }}"
+          image: "{{ .Values.ecrimage.fe.name }}:{{ .Chart.Version }}"
           {{ end }}
           imagePullPolicy: IfNotPresent
           volumeMounts:

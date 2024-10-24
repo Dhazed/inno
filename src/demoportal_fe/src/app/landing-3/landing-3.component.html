@@ -1,5 +1,5 @@
 <div class="ic1-ml-72 ic1-mr-72 ic1-mb-64">
-    <div class="ic1-row ic1-mr-24 ic1-ml-24 ic1-pt-32 ic1-pb-32">
+    <div class="ic1-row ic1-mt-24 c1-pt-32 ic1-pb-0">
         <div class="ic1-col-1 ic1-pb-0">
             <h2 class="typewriter ic1-pb-0" [class.show-caret]="showCaretTitle">{{ typedTitle }}</h2>
         </div>
@@ -16,6 +16,7 @@
                 [title]="'Servizi'"
                 [text]="'Demo dei singoli servizi'"
                 [isNewCard]="true"
+                [icon]="'dynamic_feed'"
                 [isActive]="activeService == '1'"> </app-card-menu> 
             </div>
             <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
@@ -23,18 +24,21 @@
                 [title]="'Processi onboarding'"
                 [text]="'Demo dei singoli servizi'"
                 [isNewCard]="true"
+                [icon]="'pending'"
                 [isActive]="activeService == '2'"> </app-card-menu>
             </div>
             <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
                 <app-card-menu (click)="selectService('3')" 
                 [title]="'Identità notificate'"
                 [isNewCard]="true"
+                [icon]="'more_horiz'"
                 [isActive]="activeService == '3'"> </app-card-menu>
             </div>
             <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
                 <app-card-menu (click)="selectService('4')" 
                 [title]="'Processi customer engagement'"
                 [isNewCard]="true"
+                [icon]="''"
                 [isActive]="activeService == '4'"> </app-card-menu>
             </div>
         </div>

@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-ssl": "ng serve --host 0.0.0.0 --ssl true --ssl-key './cert/key.pem' --ssl-cert './cert/cert.pem'",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -18,7 +19,11 @@
     "@angular/platform-browser": "^18.1.0",
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
+    "flag-icons": "^7.2.3",
     "ngx-webcam": "^0.4.1",
+    "qrcode": "^1.5.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -28,6 +33,7 @@
     "@angular/cli": "^18.1.3",
     "@angular/compiler-cli": "^18.1.0",
     "@types/jasmine": "~5.1.0",
+    "@types/qrcode": "^1.5.5",
     "autoprefixer": "^10.4.20",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

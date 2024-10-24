@@ -1,0 +1,87 @@
+<div class="ic1-container min-h-[100vh]">
+    <div class="ic1-row">
+        <div class="ic1-col-12 ic1-mt-16">
+            <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
+                <li class="ic1-breadcrumb-item">
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1"
+                        role="menuitem">Homepage</a>
+                </li>
+                <li class="ic1-breadcrumb-item">
+                    <a aria-level="2" role="menuitem" aria-current="page">Theme settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
+            <h2>Theme settings</h2>
+        </div>
+        <div class="ic1-col-12 ic1-mt-8 border border-ic1-gray-light rounded-[5px]">
+            <div class="ic1-row">
+                <div class="ic1-col-4">
+                    <h3 class="text-center" for="primaryColorPicker">Primary Color</h3>
+                    <div style="border-right: 2px dashed #979797;" class="flex flex-col items-center ic1-mt-16">
+                        <input class="color-picker" type="color" id="primaryColorPicker" [(ngModel)]="primaryColor">
+                        <small class="font-bold ic1-mt-16">{{primaryColor}}</small>
+                    </div>
+                    <div class="ic1-px-64 ic1-mt-16 text-[0.8rem]">
+                        Elementi coinvolti:
+                        <div class="flex items-center ic1-mb-8 ic1-mt-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">gamepad</i>
+                            Pulsanti principali dell'interfaccia
+                        </div>
+                        <div class="flex items-center ic1-mb-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">format_color_text</i>
+                            Testi principali e titoli
+                        </div>
+                        <div class="flex items-center ic1-mb-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">palette</i>
+                            Icone di navigazione e azione
+                        </div>
+                    </div>
+                </div>
+                <div class="ic1-col-4">
+                    <h3 class="text-center" for="secondaryColorPicker">Secondary Color</h3>
+                    <div style="border-right: 2px dashed #979797;" class="flex flex-col items-center ic1-mt-16">
+                        <input class="color-picker" type="color" id="secondaryColorPicker" [(ngModel)]="secondaryColor">
+                        <small class="font-bold ic1-mt-16">{{secondaryColor}}</small>
+                    </div>
+                    <div class="ic1-px-64 ic1-mt-16 text-[0.8rem]">
+                        Elementi coinvolti:
+                        <div class="flex items-center ic1-mb-8 ic1-mt-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">dialpad</i>
+                            Pulsanti secondari dell'interfaccia
+                        </div>
+                        <div class="flex items-center ic1-mb-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">text_fields</i>
+                            Testi secondari e sotto titoli
+                        </div>
+                        <div class="flex items-center ic1-mb-8">
+                            <i class="text-ic1-primary text-[1.3rem] ic1-icon ic1-icon-outlined ic1-mr-4" aria-label="" role="button">zoom_in</i>
+                            Dettagli minori
+                        </div>
+                    </div>
+                </div>
+                <div class="ic1-col-4">
+                    <h3 class="text-center">Company logo</h3>
+                    <div class="flex flex-col ic1-mx-24 ic1-mt-16 ic1-pt-16 ic1-px-28 justify-center"
+                        [class.items-center]="showFileUploader">
+                        @if (showFileUploader) {
+                        <app-file-uploader [hideQr]="true" [hideWebcam]="true" [uploaderIndex]="0"
+                            (onFileUploaded)="onFileUpload($event)"></app-file-uploader>
+                        } @else {
+                        <app-file-preview [fileName]="originalfile.name" [imageSrc]="imageSrc"></app-file-preview>
+                        <div class="w-full flex justify-center ic1-mt-24">
+                            <button (click)="removeFile()" type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+                                <span>Rimuovi</span>
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="ic1-col-12 ic1-mt-8 flex justify-end">
+                    <button type="button" (click)="saveThemeSettings()"
+                        class="ic1-btn ic1-btn-sm ic1-btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

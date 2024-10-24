@@ -5,69 +5,24 @@ metadata:
     kubernetes.io/ingress.class: internal
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-  labels:
-    {{- range $key, $val := .Values.metadata.labels }}
-    {{ $key }}: {{ $val }}
-    {{- end }}
-  name: dp_quarkus_api-ingress
+  labels: demoportal-fe
+  name: demoportal-fe-ingress
 spec:
   rules:
   - host: {{ .Values.apigateway }}
     http:
       paths:
-      - path: /iot/rest/v1/users
+      - path: /be_api
         pathType: Prefix
         backend:
           service:
-            name: dp_quarkus_api-service 
+            name: demoportal-be-service 
             port: 
               number: 8080
-      - path: /iot/rest/v1/roles
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: dp_quarkus_api-service 
+            name: demoportal-fe-service
             port: 
-              number: 8080
-      - path: /iot/rest/v1/openpolicy
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service 
-            port: 
-              number: 8080
-      - path: /iot/rest/v1/api
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service
-            port:
-              number: 8080
-      - path: /iot/rest/v1/mappings
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service
-            port:
-              number: 8080
-      - path: /iot/rest/v1/tenants
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service
-            port:
-              number: 8080
-      - path: /iot/console/useradmin
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service
-            port: 
-              number: 80
-      - path: /iot/console/sysadmin
-        pathType: Prefix
-        backend:
-          service:
-            name: dp_quarkus_api-service
-            port:
               number: 80

@@ -1,89 +1,28 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: dp_quarkus_api-configmap
+  name: useradminsvc-configmap
   labels:
     {{- range $key, $val := .Values.metadata.labels }}
     {{ $key }}: {{ $val }}
     {{- end }}
 data:
-  application.properties: |-
-    quarkus.log.level = {{ .Values.application_properties.quarkus.log.level }}
-    quarkus.log.category."it.infocert".level = {{ .Values.application_properties.quarkus.log.category.infocert.level }}
-    quarkus.log.console.format = {{ .Values.application_properties.quarkus.log.console.format }}
-    quarkus.datasource.jdbc.url = {{ .Values.application_properties.quarkus.datasource.jdbc.url }}
-
-
-    dp_quarkus_api.keycloak.server-url = {{ .Values.application_properties.dp_quarkus_api.keycloak.server_url }}
-    dp_quarkus_api.keycloak.client-id = {{ .Values.application_properties.dp_quarkus_api.keycloak.client_id }}
-    dp_quarkus_api.keycloak.username = {{ .Values.application_properties.dp_quarkus_api.keycloak.username }}
-    dp_quarkus_api.keycloak.user-initial-password = {{ .Values.application_properties.dp_quarkus_api.keycloak.user_initial_password }}
-    dp_quarkus_api.keycloak.realm = {{ .Values.application_properties.dp_quarkus_api.keycloak.realm }}
-    dp_quarkus_api.keycloak.midpki-client-scope = {{ .Values.application_properties.dp_quarkus_api.keycloak.midpki_client_scope }}
-    
-    dp_quarkus_api.openpolicy.bundle-file-name = {{ .Values.application_properties.dp_quarkus_api.openpolicy.bundle_file_name }}
-
-    storage.enabled = {{ .Values.application_properties.storage.enabled }}
-    storage.aws-s3.enabled = {{ .Values.application_properties.storage.awss3.enabled }}
-    storage.aws-s3.hostname = {{ .Values.application_properties.storage.awss3.hostname }}
-    storage.aws-s3.region = {{ .Values.application_properties.storage.awss3.region }}
-    storage.aws-s3.bucket-name = {{ .Values.application_properties.storage.awss3.bucketname }}
-    storage.aws-s3.folder-name = {{ .Values.application_properties.storage.awss3.foldername }}
-    storage.filesystem.enabled = {{ .Values.application_properties.storage.filesystem.enabled }}
-
-    async.aws.sqs.enabled = {{ .Values.application_properties.async.aws.sqs.enabled }}
-  
-    event.queue.type = {{ .Values.application_properties.event.queue.type }}
-    event.queue.aws.url = {{ .Values.application_properties.event.queue.aws.url }}
-    event.queue.aws.region = {{ .Values.application_properties.event.queue.aws.region }}
-    event.queue.rabbit.host = {{ .Values.application_properties.event.queue.rabbit.host }}
-    event.queue.rabbit.user = {{ .Values.application_properties.event.queue.rabbit.user }}
-    event.queue.rabbit.password = {{ .Values.application_properties.event.queue.rabbit.password }}
-    event.queue.rabbit.name = {{ .Values.application_properties.event.queue.rabbit.name }}
-    event.queue.rabbit.exchange.name = {{ .Values.application_properties.event.queue.rabbit.exchange.name }}
-    write-bundle.queue.aws.url = {{ .Values.application_properties.write_bundle.queue.aws.url }}
-    
-    # Secrets Manager: aws/kubernetes/sops
-    secrets.manager.type={{ .Values.application_properties.secrets.manager.type }}
-    
-    # names of aws secrets
-    secret.name.quarkus.datasource.username={{ .Values.application_properties.secrets.names.quarkus.datasource.username }}
-    secret.name.quarkus.datasource.password={{ .Values.application_properties.secrets.names.quarkus.datasource.password }}
-    secret.name.dp_quarkus_api.keycloak.password={{ .Values.application_properties.secrets.names.keycloak.password }}
-    secret.name.event.queue.rabbit.user={{ .Values.application_properties.secrets.names.rabbit.username }}
-    secret.name.event.queue.rabbit.password={{ .Values.application_properties.secrets.names.rabbit.password }}
-    
-    localstack.enabled=false
-    
-    
-
-  liquibase.properties: |-
-    url = {{ .Values.liquibase_properties.url }}
 
   nginx.conf: |-
     events {}
     http {
-        include {{ .Values.ui.mimetypes }};
+        include {{ .Values.fe.mimetypes }};
         server {
-            listen      {{ .Values.ui.port }};
+            listen      {{ .Values.fe.port }};
     
-            root {{ .Values.ui.root }};
+            root {{ .Values.few.root }};
             index index.html;
-            location /iot/console/useradmin {
-                try_files $uri$args $uri$args/ /iot/console/useradmin/index.html;
+            location / {
+                try_files $uri$args $uri$args/ /index.html;
             }
             location = /basic_status {
                 stub_status;
             }
         }
-    }
-  configuration.json: |-
-    {
-      "oicAdminUriLocal": "http://localhost:8080",
-      "oicAdminUri": "{{ .Values.ui.oidc.admin.uri }}",
-      "oicRealm": "iot",
-      "oicSysAdminUriLocal": "http://localhost:8080",
-      "oicSysAdminUri": "{{ .Values.ui.oidc.admin.uri }}",
-      "oicSysRealm": "iot"
     }
  

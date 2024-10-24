@@ -1,90 +1,145 @@
 <div class="ic1-header-wrapper">
   <div class="ic1-header">
     <div class="ic1-header-info">
-      <div class="ic1-brand-infocert-default"></div>
+      <div style="cursor: pointer;" [routerLink]="'/home'" [ngStyle]="{'background-image': 'var(--logo-url)'}"
+        class="ic1-brand-infocert-default"></div>
       <div class="ic1-separator ic1-separator-vertical"></div>
-      <div class="ic1-header-title">Demo Center</div>
+      <div [ngStyle]="{'color': 'var(--primary-color)'}" class="ic1-header-title">{{ 'cmZAi|Demo_DizmeVoting_IssuedInfocert' | translate }}</div>
     </div>
-    
-    
+
+
     <div class="ic1-col-3 flex items-center justify-end">
       @if (router.url != '/login') {
-        <div class="relative pr-2">  
-          <button type="button" class="ic1-btn ic1-btn-mini ic1-btn-icon ic1-btn-header" data-toggle="ic1-collapse" data-target="ic1-collapse" aria-describedby="ic1-dropdown">
-            <i class="ic1-icon ic1-icon-outlined" aria-hidden="true" role="button">flag</i>
-          </button>
-          
-          <div id="ic1-dropdown" class="ic1-dropdown ic1-dropdown-down ic1-collapse absolute top-[45px] right-[8px]">
+      <div class="relative pr-2">
+        <button type="button" class="ic1-btn ic1-btn-mini ic1-btn-icon ic1-btn-header" data-toggle="ic1-collapse"
+          data-target="ic1-collapse" aria-describedby="ic1-dropdown">
+          <span [ngClass]="flagLang" class="fi"></span>
+        </button>
+
+        <div id="ic1-dropdown" [class.ic1-show]="isLangOpen"
+          class="w-[15rem] ic1-dropdown ic1-dropdown-down ic1-collapse absolute top-[45px] right-[8px]">
+          <ul class="ic1-dropdown-list">
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('it')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-it ic1-mr-8"></span>{{ 'Italiano / Italia' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('en')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-gb ic1-mr-8"></span>{{ 'Global / English' }}</span>
+                </div>
+              </span>
+            </li>
+
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('fr')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-fr ic1-mr-8"></span>{{ 'Français / France' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('de')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-de ic1-mr-8"></span>{{ 'Deutsch / Deutschland' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('hu')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-hu ic1-mr-8"></span>{{ 'Magyar / Magyarország' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('pl')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-pl ic1-mr-8"></span>{{ 'Polski / Polska' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('pt')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-pt ic1-mr-8"></span>{{ 'Português / Portugal' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('ro')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-ro ic1-mr-8"></span>{{ 'Română / România' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('sl')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-si ic1-mr-8"></span>{{ 'Slovenščina / Slovenija' }}</span>
+                </div>
+              </span>
+            </li>
+            <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <span role="radio" aria-checked="false">
+                <div (click)="setLanguage('es')" class="ic1-dropdown-item-rows">
+                  <span class="!justify-start"><span class="fi fi-es ic1-mr-8"></span>{{ 'Español / España' }}</span>
+                </div>
+              </span>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="ic1-form-group py-[24px] mb-0">
+        <div class="ic1-select-wrapper">
+          <div class="ic1-select ic1-placeholder content-center !h-[3rem]" data-toggle="ic1-collapse"
+            data-target="ic1-collapse"> alessandra.donzelli&#64;email.com
+          </div>
+          <div id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown ic1-collapse">
             <ul class="ic1-dropdown-list">
-              <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <li routerLink="/profile-settings" class="ic1-dropdown-item" role="option" aria-checked="false">
                 <span role="radio" aria-checked="false">
                   <div class="ic1-dropdown-item-rows">
-                    <span>English</span>
+                    <span class="!flex !justify-start">
+                      <i class="ic1-icon ic1-icon-outlined ic1-mr-16" aria-hidden="true" role="button">group</i>
+                      <span>{{ 'cmUsw|Demo_header_MyProfile' | translate}}</span>
+                    </span>
                   </div>
                 </span>
               </li>
-              <li class="ic1-dropdown-item" role="option" aria-checked="false">
+              <li routerLink="/login" class="ic1-dropdown-item" role="option" aria-checked="false">
                 <span role="radio" aria-checked="false">
                   <div class="ic1-dropdown-item-rows">
-                    <span>Italian</span>
+                    <span class="!flex !justify-start">
+                      <i class="ic1-icon ic1-icon-outlined ic1-mr-16" aria-hidden="true" role="button">logout</i>
+                      <span>{{ 'cmNTQ0|Demo_header_txt_Logout' | translate}}</span>
+                    </span>
                   </div>
                 </span>
               </li>
             </ul>
           </div>
         </div>
-
-        <div class="ic1-form-group py-[24px] mb-0">
-          <div class="ic1-select-wrapper">
-            <div class="ic1-select ic1-placeholder content-center !h-[3rem]" data-toggle="ic1-collapse" data-target="ic1-collapse"> alessandra.donzelli&#64;email.com 
-            </div>
-            <div id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown ic1-collapse">
-              <ul class="ic1-dropdown-list">
-                <li class="ic1-dropdown-item" role="option" aria-checked="false">
-                  <span role="radio" aria-checked="false">
-                    <div class="ic1-dropdown-item-rows">
-                      <span routerLink="/profile-settings" class="!flex !justify-start">
-                        <i
-                        class="ic1-icon ic1-icon-outlined ic1-mr-16"
-                        aria-hidden="true"
-                        role="button"
-                        >group</i>
-                        <span>Profilo</span>
-                      </span>
-                    </div>
-                  </span>
-                </li>
-                <li class="ic1-dropdown-item" role="option" aria-checked="false">
-                  <span role="radio" aria-checked="false">
-                    <div class="ic1-dropdown-item-rows">
-                      <span class="!flex !justify-start">
-                        <i
-                        class="ic1-icon ic1-icon-outlined ic1-mr-16"
-                        aria-hidden="true"
-                        role="button"
-                        >logout</i>
-                        <span>Esci</span>
-                      </span>
-                    </div>
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      } @else {
-        <div class="ic1-row justify-right">
-            <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
-              <span>Assistenza</span>
-            </button> 
-            <div  class="ic1-mr-8 ic1-ml-8 border-r border-ic1-gray-light border-solid">
-            </div>
-            <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
-              <span>Documentazione</span>
-            </button>
-          </div>
-        }   
       </div>
+      } @else {
+      <div class="ic1-row justify-right">
+        <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+          <span><a target="_blank" href="https://help.infocert.it/contatti/">{{ 'HEADER.BUTTON_ASSISTANCE' |
+              translate}}</a></span>
+        </button>
+        <div class="ic1-mr-8 ic1-ml-8 border-r border-ic1-gray-light border-solid">
+        </div>
+        <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
+          <span><a target="_blank" href="https://www.infocert.it/documentazione">{{ 'cmkvF0|Demo_CiePhone_Document' |
+              translate}}</a></span>
+        </button>
+      </div>
+      }
     </div>
   </div>
-  
+</div>

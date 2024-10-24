@@ -1,0 +1,17 @@
+<div class="ic1-tabs">
+    <div id="tabpanel-id" class="ic1-tabs-nav ic1-tabs-nav-primary" role="tabpanel">
+        <button *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)" [id]="'tab-' + i" class="ic1-tab"
+            [class.ic1-tab-active]="i === selectedTabIndex" role="tab" aria-selected="i === selectedTabIndex">
+            <div class="ic1-flex pointer-events-none">
+                <span class="ic1-tab-title">{{ tab.title }}</span>
+            </div>
+        </button>
+    </div>
+    <div class="ic1-tabs-contents">
+        <ng-container *ngFor="let tab of tabs; let i = index">
+            <div [class.ic1-tab-content-active]="i == selectedTabIndex" class="ic1-tab-content">
+                <ng-content *ngTemplateOutlet="tab.content"></ng-content>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="ic1-form-group mb-0">
+  <label *ngIf="label" for="input-id">{{label}}</label>
+  <div class="ic1-select-wrapper">
+    <div class="ic1-select ic1-placeholder" [class.ic1-disabled]="disabled" (click)="toggleDropdown()">
+      {{ selectedItem?.label ? selectedItem.label : placeholder }}
+    </div> 
+    <div *ngIf="!disabled" id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown" [class.ic1-show]="isDropdownOpen">
+      <ul class="ic1-dropdown-list">
+        <li *ngIf="includeEmptyOption" class="ic1-dropdown-item" role="option" aria-checked="false" (click)="selectItem({ label: '', value: '' })">
+          <span role="radio" aria-checked="false">
+            <div class="ic1-dropdown-item-rows">
+              <ng-container>{{emptyLabel}}</ng-container>
+            </div>
+          </span>
+        </li>
+        <li *ngFor="let item of items" class="ic1-dropdown-item" [class.selected]="item.value === selectedItem?.value" role="option" aria-checked="false" (click)="selectItem(item)">
+          <span role="radio" aria-checked="false">
+            <div class="ic1-dropdown-item-rows">
+              <ng-container *ngIf="item.customContent">
+                <ng-container *ngTemplateOutlet="item.customContent"></ng-container>
+              </ng-container>
+              <ng-container *ngIf="!item.customContent">{{ item.label }}</ng-container>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

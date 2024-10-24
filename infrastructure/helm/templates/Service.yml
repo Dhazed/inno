@@ -1,21 +1,34 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dp_quarkus_api-service
-  labels:
-    {{- range $key, $val := .Values.metadata.labels }}
-    {{ $key }}: {{ $val }}
-    {{- end }}
+  name: demoportal-fe-service
+  labels: demoportal-fe-service
 spec:
   type: ClusterIP
   selector:
-    app: {{ .Values.app_name }}
+    app: demoportal-fe-service
   ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080
-    name: api
+    name: backend-api
   - protocol: TCP
     port: 80
-    targetPort: {{ .Values.ui.port }}
-    name: console
+    targetPort: 80
+    name: frontend-angular
+
+----------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoportal-be-service
+  labels: demoportal-be-service
+spec:
+  type: ClusterIP
+  selector:
+    app: demoportal-be-service
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    name: backend-service

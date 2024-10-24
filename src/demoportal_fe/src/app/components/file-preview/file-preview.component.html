@@ -1,0 +1,29 @@
+<div class="test-storybook-file-preview">
+        <div class="ic1-file-preview">
+          <div class="ic1-file-preview-img bg-center !h-[30vh] !bg-contain" [style.background-image]="'url(' + imageSrc + ')'">
+            <div class="overlay-img">
+              <i
+                class="ic1-icon-custom-download"
+                name="ic1-icon-custom-download"
+                aria-label="icon-custom-download"
+                role="button"
+              ></i>
+            </div>
+          </div>
+          <div class="ic1-file-preview-footer">
+            <i class="ic1-icon" role="button">picture_as_pdf</i>
+            <label class="ic1-text-label-3">{{fileName}}</label>
+            <div class="triangle"></div>
+          </div>
+          <span class="ic1-file-preview-chip">
+            <span>{{fileName}}</span>
+            <i
+              class="ic1-icon ic1-download-icon"
+              aria-label="download"
+              role="button"
+            >
+              file_download
+            </i>
+          </span>
+        </div>
+  </div>

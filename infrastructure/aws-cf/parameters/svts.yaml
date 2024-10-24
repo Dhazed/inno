@@ -1,8 +1,2 @@
 - ParameterKey: "Environment"
   ParameterValue: "svts"
-- ParameterKey: "TeamAWSId"
-  ParameterValue: "iot"
-- ParameterKey: "STAWSId"
-  ParameterValue: "mpkiot"
-- ParameterKey: "KMSKeyId"
-  ParameterValue: "5bbf5a6b-b2fd-44e4-a0f7-92f012757d9c"

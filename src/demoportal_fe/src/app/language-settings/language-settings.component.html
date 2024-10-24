@@ -1,0 +1,130 @@
+<div class="ic1-container min-h-[100vh]">
+    <div class="ic1-row">
+        <div class="ic1-col-12 ic1-mt-16">
+            <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
+                <li class="ic1-breadcrumb-item">
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1"
+                        role="menuitem">Homepage</a>
+                </li>
+                <li class="ic1-breadcrumb-item">
+                    <a aria-level="2" role="menuitem" aria-current="page">Language settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
+            <h2>Language settings</h2>
+        </div>
+        <div class="ic1-col-12 ic1-mt-8 border border-ic1-gray-light rounded-[5px]">
+            <div class="ic1-row">
+                <div class="ic1-col-6 content-center">
+                    <app-search (searchEvent)="onSearch($event)"></app-search>
+                </div>
+                <div class="ic1-col-3 content-center">
+                    <app-custom-select [selectedItem]="selectedLanguage1" [items]="languagesOptions"
+                        placeholder="Seleziona la nazionalità" (selectedItemChange)="onSelectedLanguage1($event)">
+                    </app-custom-select>
+                </div>
+                <div class="ic1-col-3 content-center">
+                    <app-custom-select [selectedItem]="selectedLanguage2" [items]="languagesOptions"
+                        placeholder="Seleziona la nazionalità" (selectedItemChange)="onSelectedLanguage2($event)">
+                    </app-custom-select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ic1-mb-16 ic1-py-8 ic1-col-12 ic1-mt-8 border border-ic1-gray-light rounded-[5px]">
+        <div class="ic1-row">
+            <ng-container *ngIf="paginatedTranslationKeys && paginatedTranslationKeys.length > 0; else noTranslations">
+                <div class="ic1-col-12 flex justify-start">
+                    <div class="ic1-tooltip-wrapper">
+                        <i (click)="toggleAllAccordions()"
+                            class="ic1-with-tooltip toggle-icon material-symbols-outlined"
+                            aria-label="Toggle All Accordions" role="button">{{areAllAccordionsOpen ? 'unfold_less' :
+                            'unfold_more'}}</i>
+                        <div class="ic1-tooltip ic1-tooltip-info ic1-tooltip-right ml-8 bottom-[20px]">
+                            {{areAllAccordionsOpen ? 'Comprimi' : 'Espandi'}} tutte le voci
+                            <div class="ic1-tooltip-arrow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ic1-col-12" *ngFor="let key of paginatedTranslationKeys">
+                    <div class="ic1-accordion" name="undefined">
+                        <button class="ic1-accordion-header" [class.ic1-toggled]="areAllAccordionsOpen"
+                            data-toggle="ic1-collapse" data-target="ic1-collapse" aria-expanded="false"
+                            [attr.aria-controls]="key + '-accordion-panel'">
+                            <div class="ic1-accordion-header-title">
+                                <span class="cursor-text " (click)="$event.stopPropagation()" style="user-select: text;">{{key}}</span>
+                            </div>
+                        </button>
+                        <div id="{{ key }}-accordion-panel"
+                            [ngClass]="{'ic1-show': areAllAccordionsOpen, '!h-auto': areAllAccordionsOpen}"
+                            class="ic1-accordion-content ic1-collapse">
+                            <div class="ic1-row flex-nowrap">
+                                <div [class.h-10]="!translations[selectedLanguage1.value][key].value"
+                                    class="cursor-not-allowed bg-[#edeff0] ic1-col-6 border border-ic1-gray-light rounded-[5px] ic1-mr-8">
+                                    {{ translations[selectedLanguage1.value][key].value }}
+                                </div>
+                                <div [class.h-10]="!translations[selectedLanguage2.value][key].value"
+                                    (click)="openEditLabelModal(key, translations[selectedLanguage2.value][key])"
+                                    style="cursor: pointer;"
+                                    class="ic1-col-6 border border-ic1-gray-light rounded-[5px]">
+                                    {{ translations[selectedLanguage2.value][key].value }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noTranslations>
+                <div class="ic1-col-12 w-[30vh] flex justify-center content-center">
+                    <h3>Nessun risultato</h3>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-container *ngIf="paginatedTranslationKeys && paginatedTranslationKeys.length > 0">
+        <div class="ic1-col-12 flex justify-center">
+            <nav class="ic1-paginator ic1-paginator-sm">
+                <ul class="ic1-pages">
+                    <li class="ic1-page ic1-page-prev" [class.disabled]="currentPage === 1" role="button"
+                        (click)="goToPage(currentPage - 1)"></li>
+                    <li *ngIf="pagesToShow[0] > 1" class="ic1-page" role="button" (click)="goToPage(1)">1</li>
+                    <li *ngIf="pagesToShow[0] > 2" class="ic1-page">...</li>
+                    <li *ngFor="let page of pagesToShow" class="ic1-page" [class.ic1-page-active]="page === currentPage"
+                        role="button" (click)="goToPage(page)">
+                        {{ page }}
+                    </li>
+                    <li *ngIf="pagesToShow[pagesToShow.length - 1] < totalPages - 1" class="ic1-page">...</li>
+                    <li *ngIf="pagesToShow[pagesToShow.length - 1] < totalPages" class="ic1-page" role="button"
+                        (click)="goToPage(totalPages)">{{ totalPages }}</li>
+                    <li class="ic1-page ic1-page-next" [class.disabled]="currentPage === totalPages" role="button"
+                        (click)="goToPage(currentPage + 1)"></li>
+                </ul>
+            </nav>
+        </div>
+    </ng-container>
+</div>
+
+<app-modal *ngIf="isVisibleEditModal" (close)="closeModal()" [subTitle]="selectedLabel.key"
+    [title]="'Modifica etichetta'" [isVisible]="isVisibleEditModal">
+    <div class="ic1-row w-full">
+        <div class="ic1-col-12">
+            <div class="ic1-form-group">
+                <label for="input-lang" class="">Label</label>
+                <textarea type="text" id="input-lang" class="ic1-input" [(ngModel)]="selectedLabel.value"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="ic1-row" modal-footer>
+        <div class="ic1-col-12 flex justify-end">
+            <button (click)="closeModal()" type="button" class="ic1-mr-24 ic1-btn ic1-btn-sm ic1-btn-secondary">
+                <span>{{ 'cmkpL|Demo_CiePhonebtn_Cancel' | translate}}</span>
+            </button>
+            <button (click)="saveChanges()" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                <span>{{ 'cmtZL0|Demo_btn_confirm' | translate}}</span>
+            </button>
+        </div>
+    </div>
+</app-modal>

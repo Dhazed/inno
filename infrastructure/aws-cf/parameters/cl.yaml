@@ -1,9 +1,3 @@
 - ParameterKey: "Environment"
   ParameterValue: "cl"
-- ParameterKey: "TeamAWSId"
-  ParameterValue: "iot"
-- ParameterKey: "STAWSId"
-  ParameterValue: "mpkiot"
-- ParameterKey: "KMSKeyId"
-  # iot-mpkiot-cl-cmk
-  ParameterValue: "1541c899-1c39-47e0-a80e-345e87f32ac1"
+

@@ -1,0 +1,17 @@
+.ic1-dropdown {
+    display: none;
+  }
+  
+  .ic1-dropdown.ic1-show {
+    display: block;
+  }
+  .ic1-select.disabled {
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    color: #6c757d;
+  }
+  
+  .ic1-dropdown-item.disabled {
+    pointer-events: none;
+    color: #6c757d;
+  }

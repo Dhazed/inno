@@ -1,0 +1,246 @@
+<div class="ic1-ml-72 ic1-mr-72 ic1-mb-64">
+  <div class="ic1-row ic1-mr-24 ic1-ml-24 ic1-pt-32 ic1-pb-32">
+    <div class="ic1-col-12">
+      <h2 class="ic1-pb-8">{{ 'cmqMY|Demo_Dizme_shopProducts' | translate }}</h2>
+      <p>{{ 'bTHBy1|header_txt_SlideMenu_2' | translate }}</p>
+    </div>
+  </div>
+  <div class="ic1-row">
+    <div class="ic1-col-3 ic1-pr-0">
+      <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+        <app-card-menu (click)="selectService('1')" [title]="'cmqHJ0|Demo_Dizme_shopService' | translate"
+          [text]="'cmfKz0|Demo_Header_ServicesTxt' | translate" [icon]="'dynamic_feed'"
+          [isActive]="activeService == '1'">
+        </app-card-menu>
+      </div>
+      <!--  <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+        <app-card-menu (click)="selectService('2')" [title]="'LANDING.ONBOARDING.TITLE' | translate"
+          [text]="'LANDING.ONBOARDING.TEXT' | translate" [icon]="'pending'" [isActive]="activeService == '2'">
+        </app-card-menu>
+      </div>
+      <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+        <app-card-menu (click)="selectService('3')" [title]="'LANDING.NOTIFIED_IDENTITY.TITLE' | translate"
+          [icon]="'badge'" [isActive]="activeService == '3'"> </app-card-menu>
+      </div>
+      <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+        <app-card-menu (click)="selectService('4')" [title]="'LANDING.CUSTOMER_ENGAGEMENT.TITLE' | translate"
+          [icon]="'support_agent'" [isActive]="activeService == '4'"> </app-card-menu>
+      </div> -->
+      <div class="ic1-col-12 ic1-pb-0 ic1-pt-0 ic1-pr-0">
+        <app-card-menu (click)="selectService('5')" [title]="'cmUsx0|Demo_header_Administration' | translate"
+          [icon]="'admin_panel_settings'" [isActive]="activeService == '5'"> </app-card-menu>
+      </div>
+    </div>
+
+
+    <div class="ic1-col-9 ic1-pl-0">
+      <div *ngIf="activeService == '1'" class="ic1-row">
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image0.svg'"
+                [title]="'cmQog1|Demo_AFM_txt_title' | translate" [text]="'cmQog1|Demo_AFM_txt_title' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center ">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'cmQog1|Demo_AFM_txt_title' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/ai-face-matching" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image1.svg'" [title]="'cmQWk1|Demo_ocrAdr' | translate"
+                [text]="'cmQWk1|Demo_ocrAdr' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center content-center">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'cmQWk1|Demo_ocrAdr' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/document-recognition" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image2.svg'"
+                [title]="'cmWLL|Demo_btn_other' | translate"
+                [text]="'cmWLL|Demo_btn_other' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center content-center">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'cmWLL|Demo_btn_other' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/document-recognition-veridas" type="button"
+                  class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image3.svg'"
+                [title]="'LANDING.CUSTOMER_ONBOARDING.TITLE' | translate"
+                [text]="'LANDING.CUSTOMER_ONBOARDING.TEXT' | translate"> </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center content-center">
+              <div class="ic1-col-12">
+                <p>{{ 'LANDING.CUSTOMER_ONBOARDING.TEXT' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image4.svg'"
+                [title]="'LANDING.CUSTOMER_ONBOARDING.TITLE' | translate"
+                [text]="'LANDING.CUSTOMER_ONBOARDING.TEXT' | translate"> </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center content-center">
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image5.svg'"
+                [title]="'LANDING.CUSTOMER_ONBOARDING.TITLE' | translate"
+                [text]="'LANDING.CUSTOMER_ONBOARDING.TEXT' | translate"> </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center content-center">
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+      <div *ngIf="activeService == '5'" class="ic1-row">
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image0.svg'"
+                [title]="'bTHOs1|settings_txt_Language' | translate"
+                [text]="'bTHOs1|settings_txt_Language' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center ">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'bTHOs1|settings_txt_Language' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/language-settings" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image1.svg'"
+                [title]="'cmVZN|Demo_form_color' | translate" [text]="'cmVZN|Demo_form_color' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center ">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'cmVZN|Demo_form_color' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/theme-settings" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image4.svg'" [title]="'Companies settings' | translate"
+                [text]="'Companies settings' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center ">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'Companies settings' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/companies-settings" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic1-col-md-4 ic1-col-sm-12 card-container !h-min">
+          <div class="card-flip !h-[33vh]">
+            <div class="card-front">
+              <app-card [cssClasses]="'border-0'" [cardImage]="'image3.svg'" [title]="'Users Settings' | translate"
+                [text]="'Users settings' | translate">
+              </app-card>
+            </div>
+            <div class="card-back ic1-row justify-center ">
+              <div class="ic1-col-12">
+                <p class="text-center">{{ 'Users settings' | translate }}</p>
+              </div>
+              <div class="ic1-col-12 ic1-p-16 flex justify-center">
+                <button routerLink="/users-settings" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                  <span>{{ 'cmXAZ1|Demo_btn_go' | translate }}</span>
+                  <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,2 @@
-org/acme/GreetingResourceTest.class
-org/acme/GreetingResourceIT.class
+it/infocert/demoportal/GreetingResourceTest.class
+it/infocert/demoportal/GreetingResourceIT.class

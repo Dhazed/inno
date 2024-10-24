@@ -1,0 +1,29 @@
+# Use postgres/example user/password credential
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: demoportal_postrgres_user
+      POSTGRES_PASSWORD: demoportal_postrgres_password
+      POSTGRES_DB: demoportal_schema
+      PGDATA: /var/lib/postgresql/data/pgdata/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U demoportal_postrgres_user"]
+      interval: 100s
+      timeout: 5s
+      retries: 6
+    volumes:
+        - ./pgdata:/var/lib/postgresql/data/pgdata/
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9080:8080
+

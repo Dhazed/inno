@@ -2,7 +2,7 @@
     <div class="ic1-col-12"> 
 
       @if(!isNewCard){
-        <div class="ic1-card ic1-card-elevated ic1-card-icon-left"
+        <div class="ic1-card ic1-card-elevated ic1-card-icon-left pb-[0.5rem]"
         [ngStyle]="{'background-color': isActive ? '#f4f6f9' : '#fff','border-color': isActive ? '#016F98' : '#EDEFF0'}">
         
          <div class="ic1-card-content">
@@ -10,15 +10,15 @@
              <div class="ic1-card-title">
                <div class="ic1-card-icon ic1-mr-16">
                  <i
-                   class="ic1-icon-custom-phone-line"
+                   class="ic1-icon ic1-icon-outlined !border-0 !text-[1.5em]"
                    aria-hidden="true"
                    role="button"
-                 ></i>
+                 >{{icon}}</i>
                </div>
               
-               {{title}}
+               <span class="!capitalize">{{title.toLowerCase()}}</span>
                <i style="right: 16px;"
-                 class="ic1-icon ic1-icon-outlined absolute"
+                 class="ic1-icon absolute"
                  aria-label="procedi"
                  role="button"
                >
@@ -36,19 +36,16 @@
       } @else {
         <div class="ic1-card ic1-card-elevated ic1-card-icon-left" style="margin: 8px 16px;  margin-bottom: -12px;"
         [ngStyle]="{'background-color': 'transparent','border':'none', 'box-shadow': isActive ? '  rgba(237, 239, 240, 0.5) 0 0rem 2rem 0px' : 'none'}">
-        <!-- inset rgba(237, 239, 240, 0.5) 0 0rem 2rem 0px -->
           <div class="ic1-card-content">
            <div class="ic1-card-header !mb-0">
-             <div class="ic1-card-title w-100" [ngClass]="{'!text-2xl': isActive }">
+             <div class="ic1-card-title w-100 !items-start !capitalize" [ngClass]="{'!text-2xl': isActive }">
                 {{title}}
-              
-       
-               <div class="ic1-card-icon !mr-0">
+               <div *ngIf="isActive" class="ic1-card-icon !mr-0">
                 <i
-                  class="ic1-icon-custom-phone-line"
+                  class="ic1-icon ic1-icon-outlined !border-0 !text-[1.2em]"
                   aria-hidden="true"
                   role="button"
-                ></i>
+                >{{icon}}</i>
               </div>
              </div>
            </div>

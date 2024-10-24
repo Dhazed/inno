@@ -1,0 +1,34 @@
+.gauge-container {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .gauge {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .gauge-background {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 2.8;
+  }
+  
+  .gauge-value {
+    fill: none;
+    stroke-width: 2.8;
+    stroke-linecap: round;
+    stroke: #980000;
+    stroke-dasharray: 0, 100;
+    transition: stroke-dasharray 0.5s;
+  }
+
+  .gauge-match {
+    stroke: #00984c;
+  }
+  
+  .gauge-text {
+    font-size: 0.4em;
+    fill: #333;
+  }
+  

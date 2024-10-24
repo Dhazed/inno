@@ -1,12 +1,11 @@
 
-    <div  class="ic1-card ic1-card-elevated ic1-p-0"
+    <div  class="ic1-card ic1-card-elevated ic1-p-0 ic1-pb-16"
     [ngClass]="cssClasses" [ngStyle]="{'background-color': isActive ? '#016f984f' : '#fff'}">
       <div class="ic1-card-content" >
         @if(!content) {
-          
           <div class="ic1-card-header">
             <img *ngIf="cardImage" [src]="cardImage ? cardImage : ''"
-            class="bg-ic1-gray px-[40px] py-0 bg-[#EDEFF0] h-[7rem] w-100 object-cover rounded-t-[4px]"
+            class="bg-ic1-gray px-[2rem] py-0 bg-[#EDEFF0] h-[7rem] w-full  rounded-t-[4px]"
             alt="">
          
             <div class="ic1-card-title ic1-pt-16 ic1-pr-16 ic1-pl-16 text-left" >
@@ -21,7 +20,7 @@
           </div>
           <div *ngIf="buttonLabel" class="ic1-row"> 
             <div class="ic1-col-12 ic1-p-16">
-                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-text ">
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-text">
                   <span>{{buttonLabel}}</span>
                   <i
                   class="ic1-icon ic1-icon-after ic1-icon-outlined"

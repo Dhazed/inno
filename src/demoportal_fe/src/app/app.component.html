@@ -1,8 +1,20 @@
 
-  
-  <app-header></app-header>
-  <router-outlet><router-outlet />
-  <app-footer></app-footer>
+  <app-header *ngIf="!router.url.includes('mobile-photo')"></app-header>
+  <app-loader [isLoading]="isLoading$ | async"></app-loader>
 
+  <router-outlet><router-outlet/>
+  <app-footer *ngIf="!router.url.includes('mobile-photo')"></app-footer>
+
+
+<div *ngIf="!router.url.includes('mobile-photo')" class="control-panel" [class.hidden]="isControlPanelHidden">
+  <button (click)="toggleControlPanel()" class="control-panel-toggle">▼</button>
+  <div class="control-panel-content">
+    <h3>Change Theme</h3>
+    <button (click)="changeTheme('infocert')">InfoCert</button>
+    <button (click)="changeTheme('unicredit')">Unicredit</button>
+  </div>
+</div>
+
+<button *ngIf="!router.url.includes('mobile-photo') && isControlPanelHidden" (click)="toggleControlPanel()" class="floating-button">▲</button>
   
   

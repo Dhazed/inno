@@ -1,0 +1,49 @@
+<div class="ic1-table-wrapper flex justify-center">
+  <table class="ic1-table ic1-table-small ic1-table-striped">
+    <thead>
+      <tr class="w-[13%]">
+        <th *ngFor="let column of columns">
+          <div class="ic1-table-column-sortable" (click)="sortData(column.field)">
+            {{ column.header | translate }}
+            <i *ngIf="sortField === column.field" class="ic1-icon ic1-table-column-action" aria-label="cambia ordine" role="button">
+              {{ sortOrder === 'asc' ? 'north' : 'south' }}
+            </i>
+          </div>
+        </th>
+        <th>
+          <div class="text-center">{{ 'ACTIONS' | translate }}</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedData">
+        <td *ngFor="let column of columns">
+          <div>{{ row[column.field] }}</div>
+        </td>
+        <td>
+          <div class="ic1-table-column-actions">
+            <div class="ic1-action-wrapper w-full justify-center">
+              <i *ngFor="let action of actions" class="ic1-icon ic1-icon-action" role="button"
+                (click)="onActionClick(action.handler, row)">
+                {{ action.icon }}
+              </i>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<nav class="ic1-paginator ic1-paginator-sm ic1-mt-32 justify-center">
+  <ul class="ic1-pages">
+    <li class="ic1-page ic1-page-prev" [class.disabled]="currentPage === 1" role="button"
+      (click)="goToPage(currentPage - 1)"></li>
+    <li *ngFor="let page of pages" class="ic1-page" [class.ic1-page-active]="page === currentPage" role="button"
+      (click)="goToPage(page)">
+      {{ page }}
+    </li>
+    <li class="ic1-page ic1-page-next" [class.disabled]="currentPage === totalPages" role="button"
+      (click)="goToPage(currentPage + 1)"></li>
+  </ul>
+</nav>

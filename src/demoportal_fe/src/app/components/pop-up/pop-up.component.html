@@ -1,0 +1,25 @@
+<div class="ic1-overlay ic1-overlay-pop-up" [class.ic1-visible]="isVisible">
+    <div class="ic1-pop-up" [ngClass]="'ic1-pop-up-' + status">
+        <i class="ic1-icon ic1-pop-up-icon-close ic1-icon-outlined" aria-label="Chiudi" role="button"
+            (click)="closePopUp()">
+            close
+        </i>
+        <div class="ic1-pop-up-content">
+            <span *ngIf="customIcon" class="ic1-pop-up-icon">
+                <i class="ic1-icon" aria-hidden="true" role="button">{{customIcon}}</i>
+            </span>
+            <h4>{{ title }}</h4>
+            <p>{{ subtitle }}</p>
+
+            <div class="flex w-[70%] ic1-mt-16 justify-evenly">
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary" (click)="primaryButtonClick()">
+                    <span>{{ primaryButtonText }}</span>
+                </button>
+                <button type="button" class="ic1-btn ic1-btn-sm ic1-btn-secondary" (click)="secondaryButtonClick()">
+                    <span>{{ secondaryButtonText }}</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

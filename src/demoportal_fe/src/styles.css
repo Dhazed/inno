@@ -1,5 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #006F98;
+  --primary-dark-color: #165874;
+  --secondary-color: #0B2E4F;
+  --secondary-light-color: #3C5872;
+  --secondary-dark-color: #1D2D3D;
+  --secondary-tertiary-color: #319ed8;
+  --gray-color: #EDEFF0;
+  --gray-light-color: #C2D1D9;
+  --text-color: #ffffff;
+  --logo-url: url('/logo_2023.png');
+}
+
+button.ic1-btn-primary {
+  background-color: var(--primary-color) !important;
+}
+.bg-ic1-primary {
+  background-color: var(--primary-color) !important;
+}
+/* button.ic1-btn-secondary {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+} */
+button.ic1-btn-tertiary {
+  background-color: var(--secondary-color) !important;
+}
+
+.text-ic1-primary {
+  color: var(--primary-color) !important;
+}
+
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Puoi modificare la dimensione secondo le tue necessità */
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
