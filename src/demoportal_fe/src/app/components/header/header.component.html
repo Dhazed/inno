@@ -4,12 +4,14 @@
       <div style="cursor: pointer;" [routerLink]="'/home'" [ngStyle]="{'background-image': 'var(--logo-url)'}"
         class="ic1-brand-infocert-default"></div>
       <div class="ic1-separator ic1-separator-vertical"></div>
-      <div [ngStyle]="{'color': 'var(--primary-color)'}" class="ic1-header-title">{{ 'cmZAi|Demo_DizmeVoting_IssuedInfocert' | translate }}</div>
+      <div [ngStyle]="{'color': 'var(--primary-color)'}" class="ic1-header-title">{{
+        'cmZAi|Demo_DizmeVoting_IssuedInfocert' | translate }}</div>
     </div>
 
 
+
+    @if (router.url != '/login') {
     <div class="ic1-col-3 flex items-center justify-end">
-      @if (router.url != '/login') {
       <div class="relative pr-2">
         <button type="button" class="ic1-btn ic1-btn-mini ic1-btn-icon ic1-btn-header" data-toggle="ic1-collapse"
           data-target="ic1-collapse" aria-describedby="ic1-dropdown">
@@ -44,14 +46,16 @@
             <li class="ic1-dropdown-item" role="option" aria-checked="false">
               <span role="radio" aria-checked="false">
                 <div (click)="setLanguage('de')" class="ic1-dropdown-item-rows">
-                  <span class="!justify-start"><span class="fi fi-de ic1-mr-8"></span>{{ 'Deutsch / Deutschland' }}</span>
+                  <span class="!justify-start"><span class="fi fi-de ic1-mr-8"></span>{{ 'Deutsch / Deutschland'
+                    }}</span>
                 </div>
               </span>
             </li>
             <li class="ic1-dropdown-item" role="option" aria-checked="false">
               <span role="radio" aria-checked="false">
                 <div (click)="setLanguage('hu')" class="ic1-dropdown-item-rows">
-                  <span class="!justify-start"><span class="fi fi-hu ic1-mr-8"></span>{{ 'Magyar / Magyarország' }}</span>
+                  <span class="!justify-start"><span class="fi fi-hu ic1-mr-8"></span>{{ 'Magyar / Magyarország'
+                    }}</span>
                 </div>
               </span>
             </li>
@@ -65,7 +69,8 @@
             <li class="ic1-dropdown-item" role="option" aria-checked="false">
               <span role="radio" aria-checked="false">
                 <div (click)="setLanguage('pt')" class="ic1-dropdown-item-rows">
-                  <span class="!justify-start"><span class="fi fi-pt ic1-mr-8"></span>{{ 'Português / Portugal' }}</span>
+                  <span class="!justify-start"><span class="fi fi-pt ic1-mr-8"></span>{{ 'Português / Portugal'
+                    }}</span>
                 </div>
               </span>
             </li>
@@ -79,7 +84,8 @@
             <li class="ic1-dropdown-item" role="option" aria-checked="false">
               <span role="radio" aria-checked="false">
                 <div (click)="setLanguage('sl')" class="ic1-dropdown-item-rows">
-                  <span class="!justify-start"><span class="fi fi-si ic1-mr-8"></span>{{ 'Slovenščina / Slovenija' }}</span>
+                  <span class="!justify-start"><span class="fi fi-si ic1-mr-8"></span>{{ 'Slovenščina / Slovenija'
+                    }}</span>
                 </div>
               </span>
             </li>
@@ -98,7 +104,8 @@
       <div class="ic1-form-group py-[24px] mb-0">
         <div class="ic1-select-wrapper">
           <div class="ic1-select ic1-placeholder content-center !h-[3rem]" data-toggle="ic1-collapse"
-            data-target="ic1-collapse"> alessandra.donzelli&#64;email.com
+            data-target="ic1-collapse" style="text-overflow: ellipsis;overflow: hidden;">
+            alessandra.donzelli&#64;email.com
           </div>
           <div id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown ic1-collapse">
             <ul class="ic1-dropdown-list">
@@ -126,10 +133,12 @@
           </div>
         </div>
       </div>
-      } @else {
-      <div class="ic1-row justify-right">
+    </div>
+    } @else {
+    <div class="ic1-row flex justify-end w-[70%]">
+      <div class="ic1-col-12 flex justify-end">
         <button type="button" class="ic1-btn ic1-btn-md ic1-btn-text">
-          <span><a target="_blank" href="https://help.infocert.it/contatti/">{{ 'HEADER.BUTTON_ASSISTANCE' |
+          <span><a target="_blank" href="https://help.infocert.it/contatti/">{{ 'cmqJa0|Demo_Dizme_shopAssistence' |
               translate}}</a></span>
         </button>
         <div class="ic1-mr-8 ic1-ml-8 border-r border-ic1-gray-light border-solid">
@@ -139,7 +148,7 @@
               translate}}</a></span>
         </button>
       </div>
-      }
     </div>
+    }
   </div>
 </div>

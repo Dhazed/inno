@@ -12,20 +12,36 @@
             </ul>
         </div>
     </div>
-    <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
-        <h2>Users Settings</h2>
+    <div class="ic1-row ic1-mb-24">
+        <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
+            <h2>Users Settings</h2>
+        </div>
+        <div class="ic1-col-4">
+            <app-search [hideWholeWord]="true" [hideCaseSensitive]="true" (searchEvent)="onSearch($event)"></app-search>
+        </div>
+        <div class="ic1-col-3" style="align-content: center;">
+            <app-custom-select [selectedItem]="userRole" [includeEmptyOption]="true" emptyLabel='All'
+                [items]="rolesItems" [placeholder]="'bTHDQ1|checkindetail_txt_Role' | translate" (selectedItemChange)="filterByRole($event)">
+            </app-custom-select>
+        </div>
+        <div class="ic1-col-3" style="align-content: center;">
+            <app-custom-select [selectedItem]="userCompany" [includeEmptyOption]="true" emptyLabel='All'
+                [items]="companiesItems" [placeholder]="'cmdXM|Demo_form_CompanyGroup' | translate" (selectedItemChange)="filterByCompany($event)">
+            </app-custom-select>
+        </div>
+        <div class="ic1-col-2 flex justify-end ic1-py-16">
+            <button (click)="isVisibleEditModal = true" type="submit" class="ic1-btn ic1-btn-xs ic1-btn-primary">
+                <i class="ic1-icon ic1-icon-before ic1-icon-outlined" aria-hidden="true" role="button">
+                    add
+                </i>
+                New User</button>
+        </div>
     </div>
-    <div class="ic1-col-12 flex justify-end ic1-mb-24">
-        <button (click)="isVisibleEditModal = true" type="submit" class="ic1-btn ic1-btn-sm ic1-btn-primary">
-            <i class="ic1-icon ic1-icon-before ic1-icon-outlined" aria-hidden="true" role="button">
-                add
-            </i>
-            New User</button>
-    </div>
-
-    <div class="ic1-col-12">
-        <app-table [columns]="columns" [data]="users" [actions]="actions" (actionClicked)="onActionClicked($event)">
-        </app-table>
+    <div class="ic1-row">
+        <div class="ic1-col-12">
+            <app-table [columns]="columns" [data]="filteredUsers" [actions]="actions" (actionClicked)="onActionClicked($event)">
+            </app-table>
+        </div>
     </div>
 </div>
 

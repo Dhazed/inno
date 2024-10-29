@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./theme-settings.component.css']
 })
 export class ThemeSettingsComponent {
-  primaryColor: string = '#006F98';
-  secondaryColor: string = '#165874';
+  primaryColor: string = '#ffffff';
+  secondaryColor: string = '#ffffff';
   showFileUploader: boolean = true;
   imageSrc: any = undefined;
   originalfile: any = null;

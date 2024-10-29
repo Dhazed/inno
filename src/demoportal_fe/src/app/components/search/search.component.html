@@ -1,5 +1,5 @@
 <div class="ic1-row flex items-center">
-    <div class="ic1-col-9 ic1-p-0">
+    <div [class.ic1-col-12]="hideCaseSensitive && hideWholeWord" class="ic1-col-9 ic1-p-0">
         <div style="width: 100% !important; max-width: 100% !important;"
             class="justify-start ic1-search ic1-search-focus">
             <!-- <label class="ic1-hide-text" for="icId-search">Ricerca</label> -->
@@ -8,12 +8,12 @@
             </i>
             <input #searchInput
                 style="outline: 0 !important; transition: none !important; width: calc(100% - 80px) !important;"
-                type="text" id="icId-search" placeholder="Cerca" [(ngModel)]="searchControl.value"
+                type="text" id="icId-search" [placeholder]="'cmcPC|Demo_GPA_Search' | translate" [(ngModel)]="searchControl.value"
                 [formControl]="searchControl" />
         </div>
     </div>
     <div class="ic1-col-3 ic1-p-0 justify-evenly flex">
-        <div class="ic1-tooltip-wrapper">
+        <div *ngIf="!hideCaseSensitive" class="ic1-tooltip-wrapper">
             <i (click)="toggleCaseSensitive()" [class.active]="isCaseSensitive"
                 class="ic1-with-tooltip toggle-icon material-symbols-outlined ic1-mr-6" aria-label="Case sensitive"
                 role="button">
@@ -23,10 +23,11 @@
                 <div class="ic1-tooltip-arrow"></div>
             </div>
         </div>
-        <div class="ic1-tooltip-wrapper">
+        <div *ngIf="!hideWholeWord" class="ic1-tooltip-wrapper">
             <i (click)="toggleWholeWord()" [class.active]="isWholeWord"
                 class="ic1-with-tooltip toggle-icon material-symbols-outlined" aria-label="Whole word"
                 role="button">match_word</i>
+                <!-- space_bar icon for empty labels indicator-->
             <div class="ic1-tooltip ic1-tooltip-info ic1-tooltip-up">
                 La ricerca tiene conto solo delle parole esatte. 
                 Se il campo di testo viene lasciato vuoto, la ricerca troverà le labels vuote.

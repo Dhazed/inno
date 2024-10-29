@@ -28,6 +28,8 @@ export class CompaniesSettingsComponent implements OnInit {
     { name: 'Company B', primaryColor: '#0000FF', secondaryColor: '#FFFF00', logo: 'logoB.png', userCount: 200 }
   ];
 
+  filteredCompanies = this.companies;
+
   isVisibleEditModal: boolean = false;
   isPopUpVisible: boolean = false;
   selectedCompany: any = {
@@ -46,7 +48,16 @@ export class CompaniesSettingsComponent implements OnInit {
     this.isVisibleEditModal = true;
   }
 
-
+  onSearch(event: { searchValue: string | null }): void {
+    if (!event.searchValue) {
+      this.filteredCompanies = this.companies;
+      return;
+    }
+    const searchValue = event.searchValue.toLowerCase();
+    this.filteredCompanies = this.companies.filter(company => 
+      company.name.toLowerCase().includes(searchValue)
+    );
+  }
 
   onActionClicked(event: { action: string, row: any }): void {
     this.selectedCompany = event.row;

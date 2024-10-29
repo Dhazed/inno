@@ -7,14 +7,12 @@
             <img *ngIf="cardImage" [src]="cardImage ? cardImage : ''"
             class="bg-ic1-gray px-[2rem] py-0 bg-[#EDEFF0] h-[7rem] w-full  rounded-t-[4px]"
             alt="">
-         
             <div class="ic1-card-title ic1-pt-16 ic1-pr-16 ic1-pl-16 text-left" >
               {{title}}
-              
             </div>
           </div>
           <div class="ic1-card-body ic1-pt-4 ic1-pr-16 ic1-pl-16">
-            <div class="ic1-card-text text-left !text-xs" >
+            <div class="ic1-card-text text-left !text-xs" style="display: inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
               {{text}}
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -9,6 +9,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
   searchControl = new FormControl('');
+  @Input() hideWholeWord = false;
+  @Input() hideCaseSensitive = false;
   @Output() searchEvent = new EventEmitter<{ searchValue: string | null; searchOptions: { caseSensitive: boolean; wholeWord: boolean; } }>();
   @ViewChild('searchInput') searchInput: ElementRef | undefined;
 
