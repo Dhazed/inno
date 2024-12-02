@@ -21,9 +21,11 @@
 button.ic1-btn-primary {
   background-color: var(--primary-color) !important;
 }
+
 .bg-ic1-primary {
   background-color: var(--primary-color) !important;
 }
+
 /* button.ic1-btn-secondary {
   background-color: var(--secondary-color) !important;
   color: white !important;
@@ -41,7 +43,8 @@ button.ic1-btn-tertiary {
   font-family: 'Material Symbols Outlined';
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Puoi modificare la dimensione secondo le tue necessità */
+  font-size: 24px;
+  /* Puoi modificare la dimensione secondo le tue necessità */
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -51,4 +54,14 @@ button.ic1-btn-tertiary {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+}
+
+h2 {
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+}
+
+h1 {
+  font-weight: 700 !important;
+  font-size: 3rem !important;
 }

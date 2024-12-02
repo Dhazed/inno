@@ -1,3 +1,0 @@
-insert into DemoPortalUser(userid, name, surname, company ,status) values ('paolo.manzi@infocert.it', 'Paolo', 'Manzi', 'Infocert', 'active');
-insert into DemoPortalUser(userid, name, surname, company ,status) values ('dario.billeci.ext@infocert.it', 'Dario', 'Billeci', 'Infocert', 'active');
-insert into lokalisekey(id,key_id,key_name,lang_iso,translation) values (nextval('lokalise_id_seq'),null,'LOADING','it_IT','Sto caricando…');

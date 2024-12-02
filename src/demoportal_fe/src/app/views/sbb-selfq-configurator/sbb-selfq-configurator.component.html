@@ -1,0 +1,183 @@
+<div class="ic1-ml-72 ic1-mr-72 ic1-mb-64">
+    <div class="ic1-row ic1-mx-24 ic1-pb-8">
+        <div class="ic1-col-12 ic1-mt-16">
+            <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
+                <li class="ic1-breadcrumb-item">
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1"
+                        role="menuitem">{{'bTHOV1|404_bt_Homepage' | translate }}</a>
+                </li>
+                <li class="ic1-breadcrumb-item">
+                    <a aria-level="2" role="menuitem" aria-current="page">Custom Process for SBB - Beta Version</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ic1-col-12">
+            <app-step-counter [steps]="steps" [currentStep]="currentStep"></app-step-counter>
+        </div>
+        <div *ngIf="currentStep === 1" class="ic1-row w-full">
+            <div class="ic1-col-12">
+                <h2 class="ic1-pb-8">Inserisci i tuoi dati</h2>
+            </div>
+            <div class="ic1-row w-full">
+                <div class="ic1-form-group ic1-col-6">
+                    <label for="mail">{{ 'bTHOq1|settings_txt_Email' | translate}}</label>
+                    <input id="mail" type="email" [(ngModel)]="email" class="ic1-input !w-full" />
+                    <div *ngIf="!isEmailValid" class="ic1-error text-rose-700">
+                        Invalid email format
+                    </div>
+                </div>
+            </div>
+
+            <div class="ic1-row w-full">
+                <div class="ic1-form-group ic1-col-6 ic1-row ">
+                    <div class="ic1-col-12 ic1-p-0">
+                        <label for="tel">{{ 'cmhWJ|Demo_Dizme_GT_telephon' | translate}}</label>
+                    </div>
+                    <div class="ic1-col-3 ic1-p-0">
+                        <button type="button" class="ic1-btn ic1-btn-header" data-toggle="ic1-collapse"
+                            data-target="ic1-collapse" aria-describedby="ic1-dropdown">
+                            <span [ngClass]="flagLang" class="fi"></span>
+                            <span class="prefix" style="color: gray;">({{ countryPrefix }})</span>
+                        </button>
+                        <div id="ic1-dropdown"
+                            class="w-[8rem] top-[80px] left-[11px] ic1-dropdown ic1-dropdown-down ic1-collapse absolute">
+                            <ul class="ic1-dropdown-list">
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-gb', '+44')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-gb ic1-mr-8"></span>UK
+                                                (+44)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-us', '+1')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-us ic1-mr-8"></span>US
+                                                (+1)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-it', '+39')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-it ic1-mr-8"></span>ITA
+                                                (+39)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-fr', '+33')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-fr ic1-mr-8"></span>FR
+                                                (+33)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-de', '+49')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-de ic1-mr-8"></span>DE
+                                                (+49)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-hu', '+36')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-hu ic1-mr-8"></span>HU
+                                                (+36)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-pl', '+48')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-pl ic1-mr-8"></span>PL
+                                                (+48)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-pt', '+351')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-pt ic1-mr-8"></span>PT
+                                                (+351)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-ro', '+40')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-ro ic1-mr-8"></span>RO
+                                                (+40)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-si', '+386')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-si ic1-mr-8"></span>SI
+                                                (+386)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                                <li class="ic1-dropdown-item" role="option" aria-checked="false">
+                                    <span role="radio" aria-checked="false">
+                                        <div (click)="updateFlagAndPrefix('fi-es', '+34')"
+                                            class="ic1-dropdown-item-rows">
+                                            <span class="!justify-start"><span class="fi fi-es ic1-mr-8"></span>ES
+                                                (+34)</span>
+                                        </div>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ic1-col-9 ic1-p-0">
+                        <input id="tel" type="number" [(ngModel)]="phoneNumber" class="ic1-input !w-full" />
+                        <!-- <div *ngIf="companyForm.get('name')?.invalid && companyForm.get('name')?.touched" class="ic1-error">
+                            Telefono è richiesto
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="ic1-col-12 justify-end flex ic1-mt-16">
+                <button [disabled]="!phoneNumber || !email" (click)="goToStep2()" type="button"
+                    class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                    <span>{{ 'cmSIN0|Demo_btn_Next' | translate }}</span>
+                    <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="currentStep === 2" class="ic1-row w-full">
+            <div class="ic1-col-12">
+                <h2>Inquadra QR code dal dispositivo mobile</h2>
+            </div>
+            <div class="ic1-col-12 ic1-my-24 flex justify-center content-center items-center">
+                <img [src]="qrCodeImage"><br>
+            </div>
+            <div class="ic1-col-12">
+                <h4 class="text-center">Link del Qr code: <a [href]="urlQrCode" target="_blank">{{urlQrCode}}</a></h4>
+            </div>
+            <div class="ic1-col-12 flex justify-start">
+                <button (click)="goToStep1()" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                    <i class="ic1-icon ic1-icon-before ic1-icon-outlined" aria-hidden="true" role="button">west </i>
+                    <span>{{ 'cmtZp0|Demo_btn_back' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+/* Decompiler 64ms, total 300ms, lines 103 */
+package it.infocert.demoportal.beans.onboarding;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Random;
+
+import it.infocert.demoportal.beans.onboarding.model.Address;
+import it.infocert.demoportal.beans.onboarding.model.ContactDetails;
+import it.infocert.demoportal.beans.onboarding.model.IdentityDocumentData;
+import it.infocert.demoportal.beans.onboarding.model.LegalId;
+import it.infocert.demoportal.beans.onboarding.model.Person;
+import it.infocert.demoportal.beans.onboarding.model.PersonalData;
+
+public class TestHelper {
+   private static final DateFormat dayFormatter = new SimpleDateFormat("dd/MM/yyyy");
+   private static final String[] NOMI = new String[]{"AlessandroM", "BarbaraF", "CarloM", "DanielaF", "ElenaF", "GiuliaF", "LauraF", "Maria CristinaF", "MarcoM", "MassimoM", "Pietro PaoloM", "PaolaF", "AntonioM", "PatriziaF"};
+   private static final String[] COGNOMI = new String[]{"Bianchi", "Verdi", "Rossi", "Neri", "Calò", "Chiusi", "Scotti", "Pietropolli Charmet", "Galbiati", "Rovida", "Marino", "Viganò", "del Corno"};
+   private static final String[] COMUNI = new String[]{"F205", "H769"};
+   private static Random random = new Random();
+   private static final String[] FIND = new String[]{"�", "�", "�", "�", "�", "�"};
+   private static final String[] REPLACE = new String[]{"a'", "e'", "e'", "i'", "o'", "u'"};
+
+   public static Person buildPerson(String email, String telefono) throws ParseException {
+      String nome = NOMI[random.nextInt(NOMI.length)];
+      String cognome = COGNOMI[random.nextInt(COGNOMI.length)];
+      String sesso = nome.substring(nome.length() - 1, nome.length());
+      nome = nome.substring(0, nome.length() - 1);
+      Calendar c = GregorianCalendar.getInstance();
+      c.set(1930 + random.nextInt(60), random.nextInt(12), 1 + random.nextInt(28), 0, 0, 0);
+      Date dt = c.getTime();
+      return buildPerson(nome, cognome, sesso, dt, email, telefono);
+   }
+
+   public static Person buildPerson(String nome, String cognome, String sesso, Date dt, String email, String telefono , String cf) throws ParseException {
+      String nomeCf = normalize(nome).toUpperCase();
+      String cognomeCf = normalize(cognome).toUpperCase();
+      System.out.println("nome: " + nome);
+      System.out.println("cognome: " + cognome);
+      System.out.println("sesso: " + sesso);
+      System.out.println("data: " + dt);
+      System.out.println("cf: " + cf);
+      PersonalData t = new PersonalData();
+      t.setFiscalCode(cf);
+      t.setCognome(cognomeCf);
+      t.setNome(nomeCf);
+      t.setSesso(sesso);
+      t.setCittadinanza("I");
+      t.setDataNascita(dt);
+      t.setComuneNascita("MILANO");
+      t.setProvinciaNascita("MI");
+      t.setStatoNascita("I");
+      t.setNomeCompleto(nome);
+      t.setCognomeCompleto(cognome);
+      ContactDetails cd = new ContactDetails();
+      cd.setEmail(email);
+      cd.setMobileNumber(telefono);
+      Address r = new Address();
+      r.setVia("SAVONA");
+      r.setNumero("63/B");
+      r.setCap("20144");
+      r.setComune("MILANO");
+      r.setProvincia("MI");
+      r.setStato("I");
+      IdentityDocumentData d = new IdentityDocumentData();
+      d.setType("CI");
+      d.setNumber("AK11223344");
+      d.setIssuer("COMUNE");
+      d.setIssuePlace("MILANO");
+      d.setIssueProvince("MI");
+      d.setIssueDate(dayFormatter.parse("14/12/2012"));
+      d.setExpirationDate(dayFormatter.parse("13/12/2022"));
+      Person p = new Person();
+      p.setLegalId(new LegalId("IT", cf));
+      p.setPersonalData(t);
+      p.setResidenza(r);
+      p.setDocumentoRiconoscimento(d);
+      p.setContactDetails(cd);
+      return p;
+   }
+
+   private static String normalize(String value) {
+      for(int i = 0; i < FIND.length; ++i) {
+         value = value.replaceAll(FIND[i], REPLACE[i]);
+      }
+
+      return value;
+   }
+
+   public static Date convert(String value) {
+      long val = new Long(value);
+      Date date = new Date(val);
+      SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy");
+      String dateText = df.format(date);
+      System.out.println(dateText);
+      return date;
+   }
+}

@@ -1,0 +1,122 @@
+<div class="ic1-container min-h-[100vh]">
+    <div class="ic1-row">
+        <div class="ic1-col-12 ic1-mt-16">
+            <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
+                <li class="ic1-breadcrumb-item">
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1"
+                        role="menuitem">{{'bTHOV1|404_bt_Homepage' | translate }}</a>
+                </li>
+                <li class="ic1-breadcrumb-item">
+                    <a aria-level="2" role="menuitem" aria-current="page">Users settings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="ic1-row ic1-mb-24">
+        <div class="ic1-col-12 ic1-mt-8 ic1-mb-24">
+            <h2>Users Settings</h2>
+        </div>
+        <div class="ic1-col-4">
+            <app-search [hideWholeWord]="true" [hideCaseSensitive]="true" (searchEvent)="onSearch($event)"></app-search>
+        </div>
+        <div class="ic1-col-3" style="align-content: center;">
+            <app-custom-select  [includeEmptyOption]="true" emptyLabel='All'
+                [items]="rolesItems" [placeholder]="'bTHDQ1|checkindetail_txt_Role' | translate" (selectedItemChange)="filterByRole($event)">
+            </app-custom-select>
+        </div>
+        <div class="ic1-col-3" style="align-content: center;">
+            <app-custom-select [includeEmptyOption]="true" emptyLabel='All'
+                [items]="companiesItems" [placeholder]="'cmdXM|Demo_form_CompanyGroup' | translate" (selectedItemChange)="filterByCompany($event)">
+            </app-custom-select>
+        </div>
+        <div class="ic1-col-2 flex justify-end ic1-py-16">
+            <button (click)="isVisibleEditModal = true" type="submit" class="ic1-btn ic1-btn-xs ic1-btn-primary">
+                <i class="ic1-icon ic1-icon-before ic1-icon-outlined" aria-hidden="true" role="button">
+                    add
+                </i>
+                New User</button>
+        </div>
+    </div>
+    <div class="ic1-row">
+        <div class="ic1-col-12">
+            <app-table [columns]="columns" [data]="filteredUsers" [actions]="actions" (actionClicked)="onActionClicked($event)">
+            </app-table>
+        </div>
+    </div>
+</div>
+
+<app-modal *ngIf="isVisibleEditModal" (close)="closeModal()" [title]="modalMode == 'edit' ? 'Edit user' : 'New User'" [isVisible]="isVisibleEditModal">
+    <div class="ic1-row">
+        <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <label for="name">{{ 'bTHCp1|checkindetail_txt_Firstname' | translate}}</label>
+                <input id="name" type="text" [(ngModel)]="selectedUser.given_name" class="ic1-input" />
+                <!-- <div *ngIf="companyForm.get('name')?.invalid && companyForm.get('name')?.touched" class="ic1-error">
+                    Nome è richiesto
+                </div> -->
+            </div>
+        </div>
+        <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <label for="name">{{ 'bTHCq1|checkindetail_txt_Surname' | translate}}</label>
+                <input id="name" type="text" [(ngModel)]="selectedUser.surname" class="ic1-input" />
+                <!-- <div *ngIf="companyForm.get('name')?.invalid && companyForm.get('name')?.touched" class="ic1-error">
+                    Nome è richiesto
+                </div> -->
+            </div>
+        </div>
+        <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <label for="email">{{ 'bTHOq1|settings_txt_Email' | translate}}</label>
+                <input id="email" type="email" [(ngModel)]="selectedUser.user_id" class="ic1-input" />
+                <!-- <div *ngIf="companyForm.get('email')?.invalid && companyForm.get('email')?.touched" class="ic1-error">
+                    Email è richiesta
+                </div> -->
+            </div>
+        </div>
+      <!--   <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <label for="phone">{{ 'cmkvF0|Demo_CiePhone_Document' | translate}}</label>
+                <input id="phone" type="text" [(ngModel)]="selectedUser.phone" class="ic1-input" />
+                <div *ngIf="companyForm.get('email')?.invalid && companyForm.get('email')?.touched" class="ic1-error">
+                    Phone è richiesta
+                </div>
+            </div>
+        </div> -->
+        <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <app-custom-select [selectedItem]="{label:selectedUser.user_roles, value: selectedUser.user_roles}" [label]="'bTHDQ1|checkindetail_txt_Role' | translate"
+                    [items]="rolesItems" placeholder="Select role" (selectedItemChange)="onRoleChange($event)">
+                </app-custom-select>
+                <!-- <div *ngIf="companyForm.get('role')?.invalid && companyForm.get('role')?.touched" class="ic1-error">
+                    Ruolo è richiesto
+                </div> -->
+            </div>
+        </div>
+        <div class="ic1-col-6">
+            <div class="ic1-form-group">
+                <app-custom-select [selectedItem]="{label:selectedUser.companyName, value: selectedUser.companyName}" [label]="('cmdXM|Demo_form_CompanyGroup' | translate)"
+                    [items]="companiesItems" placeholder="Select company" (selectedItemChange)="onCompanyChange($event)">
+                </app-custom-select>
+                <!-- <div *ngIf="companyForm.get('role')?.invalid && companyForm.get('role')?.touched" class="ic1-error">
+                    Ruolo è richiesto
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="ic1-row" modal-footer>
+        <div class="ic1-col-12 flex justify-center">
+            <button (click)="closeModal()" type="button" class="ic1-mr-24 ic1-btn ic1-btn-sm ic1-btn-secondary">
+                <span>{{ 'cmkpL|Demo_CiePhonebtn_Cancel' | translate}}</span>
+            </button>
+            <button (click)="confirmModal()" type="submit" class="ic1-btn ic1-btn-sm ic1-btn-primary">
+                <span>{{ 'cmtZL0|Demo_btn_confirm' | translate}}</span>
+            </button>
+        </div>
+    </div>
+</app-modal>
+
+<app-pop-up [status]="'danger'" [isVisible]="isPopUpVisible" [title]="'Sei sicuro di voler eliminare questo utente?'"
+    [subtitle]="selectedUser.user_id" [primaryButtonText]="'Conferma'" [secondaryButtonText]="'Annulla'"
+    [customIcon]="'delete_forever'" (close)="closePopUp()" (primaryAction)="confirmDelete()"
+    (secondaryAction)="closePopUp()"></app-pop-up>

@@ -53,8 +53,10 @@
             </div>
             
         </div>
-
     </div>
+    <small *ngIf="maxFileSize" class="text-center flex justify-center">Dimensione massima: <b>{{maxFileSize / 1000000 }}MB</b><br></small> 
+    <small *ngIf="fileFormat" class="text-center flex justify-center"> Formato consigliato <b>{{fileFormat}}</b></small>
+
 </div>
 <app-modal (close)="closeModal()" [title]="'Visualizza il documento'" [isVisible]="isVisibleImageModal">
     <div *ngIf="!showFileUpload" class="ic1-row justify-center" style="padding: 1rem 9rem;border: 2px dashed #979797;">

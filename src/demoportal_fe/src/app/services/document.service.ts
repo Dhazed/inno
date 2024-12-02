@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { environment } from '../../environments/environment';
+import * as QRCode from 'qrcode';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentService {
-  private baseUrl: string = environment.apiUrl || 'http://localhost:8080/';
+  private baseUrl: string = environment.apiUrl || 'http://localhost:8080/api/';
   private stopPolling: boolean = false;
 
   constructor(private http: HttpClient) {}
@@ -17,7 +18,7 @@ export class DocumentService {
     return this.http.post(this.baseUrl + 'photofrommobile?idMobileSession=' + request.idMobileSession,
        {base64Content: request.base64Photo, mimeType: request.mimeType});
   }
-  saveMobileSession(request: any): Observable<any> {
+  awaitMobileSession(request: any): Observable<any> {
     return new Observable(observer => {
       const startTime = Date.now();
       const interval = setInterval(() => {
@@ -33,18 +34,20 @@ export class DocumentService {
           observer.error(new Error('Timeout: Operation took longer than 3 minutes.'));
           return;
         }
-        this.http.get(this.baseUrl + '/photofrommobile?idMobileSession=' + request.idMobileSession)
+        this.http.get(this.baseUrl + '/photofrommobile?idMobileSession=' + request)
           .subscribe(
             (response: any) => {
               if (response.status === 'completed') {
                 clearInterval(interval);
                 observer.next(response);
                 observer.complete();
+                this.stopPolling = false;
               }
             },
             (error: any) => {
               clearInterval(interval);
               observer.error(error);
+              this.stopPolling = false;
             }
           );
       }, 1000);
@@ -106,5 +109,28 @@ export class DocumentService {
       ],
       "options": {}
     };
+  }
+ 
+  generateQrCodeUrlForMobileSession(landingPage: string): Observable<any> {
+    const idMobileSession = this.generateSessionId();
+    const url = window.location.origin + `${landingPage}?idMobileSession=${idMobileSession}`;
+    return new Observable(observer => {
+      QRCode.toDataURL(url, (error, qrUrl) => {
+        if (error) {
+          observer.error(error);
+        } else {
+          observer.next({qrUrl, idMobileSession});
+          observer.complete();
+        }
+      });
+    });
+  }
+
+  private generateSessionId(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0
+      let v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 }

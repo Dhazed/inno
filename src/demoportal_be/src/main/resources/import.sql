@@ -1,2 +1,4 @@
-insert into DemoPortalUser(userid, name, surname, company ,status) values ('paolo.manzi@infocert.it', 'Paolo', 'Manzi', 'Infocert', 'active');
-insert into DemoPortalUser(userid, name, surname, company ,status) values ('dario.billeci.ext@infocert.it', 'Dario', 'Billeci', 'Infocert', 'active');
+INSERT INTO Companies (id_company_name, company_description, logo_img, primary_color , secondary_color) VALUES ('INFOCERT', 'Societa per Azioni','AABBCC','#006F98','#0B2E4F');
+INSERT INTO Users (user_id,given_name,surname,id_company_name,user_roles,valid_from_epoch,valid_until_epoch,last_login,is_active) VALUES ('paolo.manzi@infocert.it','Paolo','Manzi','INFOCERT', 'ADMIN','2051222399','2051222399','0',true);
+INSERT INTO Users (user_id,given_name,surname,id_company_name,user_roles,valid_from_epoch,valid_until_epoch,last_login,is_active) VALUES ('paolo.manzi.coll@infocert.it','Paolo','Manzi','INFOCERT', 'ADMIN','2051222399','2051222399','0',true);
+INSERT INTO Users (user_id,given_name,surname,id_company_name,user_roles,valid_from_epoch,valid_until_epoch,last_login,is_active) VALUES ('gdariobilleci@gmail.com','Dario','Billeci','INFOCERT', 'ADMIN','2051222399','2051222399','0',true);

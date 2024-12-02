@@ -1,0 +1,6 @@
+<ng-container *ngIf="showWidget">
+    <onboarding-widget style="display: flex; width: 100vw; height: 100vh;" [attr.env]="'CL'" id='widget'
+        [attr.language]="'en-US'" [attr.auth-token]="onWidgetToken" (widgetStart)="null" (widgetError)="null"
+        (widgetClose)="null" [custom-styles]="customStyles">
+    </onboarding-widget>
+</ng-container>

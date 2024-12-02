@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: demoportal
+  name: postgres-secret
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: demoportal_schema
+  POSTGRES_USER: demoportal_db_user
+  POSTGRES_PASSWORD: demoportal_db_password

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demoportal
+  name: demoportal-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demoportal-fe
+  template:
+    metadata:
+      labels:
+        app: demoportal-fe
+    spec:
+      containers:
+      - image: 444170698423.dkr.ecr.eu-west-1.amazonaws.com/demoportal-fe:0.19
+        name: demoportal-fe
+        ports:
+            - containerPort: 80
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: demoportal
+  name: demoportal-fe-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: demoportal-fe
+  type: NodePort

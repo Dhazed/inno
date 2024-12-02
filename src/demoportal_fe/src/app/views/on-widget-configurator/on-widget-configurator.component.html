@@ -1,0 +1,75 @@
+<div class="ic1-mx-72 ic1-mb-64 h-[70vh]">
+    <div class="ic1-row ic1-mx-24 ic1-pb-8">
+        <div class="ic1-col-12 ic1-mt-16">
+            <ul class="ic1-breadcrumb" aria-label="Breadcrumb" role="navigation">
+                <li class="ic1-breadcrumb-item">
+                    <a [ngStyle]="{'color': 'var(--primary-color)'}" routerLink="/home" aria-level="1"
+                        role="menuitem">{{'bTHOV1|404_bt_Homepage' | translate }}</a>
+                </li>
+                <li class="ic1-breadcrumb-item">
+                    <a aria-level="2" role="menuitem" aria-current="page">Infocert Document Recognition Service</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ic1-col-12">
+            <app-step-counter [steps]="steps" [currentStep]="currentStep"></app-step-counter>
+        </div>
+        <div *ngIf="currentStep === 1" class="ic1-row w-full">
+            <div class="ic1-col-12">
+                <h2 class="ic1-pb-8">Seleziona la configurazione</h2>
+            </div>
+
+            <div class="ic1-col-6">
+                <app-custom-select [selectedItem]="selectedCategory" (selectedItemChange)="onCategoryChange($event)" [includeEmptyOption]="true"
+                    [label]="'Select Category'" [items]="categories" placeholder="Seleziona una categoria">
+                </app-custom-select>
+            </div>
+            <div class="ic1-col-6" *ngIf="selectedCategory">
+                <app-custom-select [selectedItem]="selectedType" (selectedItemChange)="onTypeChange($event)" [includeEmptyOption]="true"
+                    [label]="'Select Type'" [items]="types" placeholder="Seleziona un tipo"
+                    [disabled]="!selectedCategory" [disabled]="!selectedCategory.value">
+                </app-custom-select>
+            </div>
+            <div class="ic1-col-6"
+                *ngIf="selectedType.value !== 'DOCUMENT VALIDATION ONLY' && selectedType.value !== 'SELF IDENTIFICATION + QES'">
+                <app-custom-select [selectedItem]="selectedLivenessType" (selectedItemChange)="onLivenessTypeChange($event)" [includeEmptyOption]="true"
+                    [label]="'Select Liveness Type'" [items]="livenessTypes" placeholder="Seleziona un tipo di liveness"
+                    [disabled]="!selectedType.value">
+                </app-custom-select>
+            </div>
+            <div class="ic1-col-6" *ngIf="selectedType.value === 'SELF IDENTIFICATION + QES'">
+                <app-custom-select [includeEmptyOption]="false" [label]="'Select Liveness Type'"
+                    [items]="[{ label: 'ADVANCED', value: 'ADVANCED' }]"
+                    placeholder="ADVANCED"
+                    [disabled]="true">
+                </app-custom-select>
+            </div>
+            <div class="ic1-col-12 ic1-mt-16" *ngIf="selectedPreset.length">
+                <p>Preset selezionato: {{ selectedPreset.join(', ') }}</p>
+            </div>
+
+            <div class="ic1-col-12 justify-end flex ic1-mt-16">
+                <button [disabled]="selectedPreset.length <= 1" (click)="goToStep2()" type="button"
+                    class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                    <span>{{ 'cmSIN0|Demo_btn_Next' | translate }}</span>
+                    <i class="ic1-icon ic1-icon-after ic1-icon-outlined" aria-hidden="true" role="button">east </i>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="currentStep === 2" class="ic1-row w-full">
+            <div class="ic1-col-12">
+                <h2>Inquadra QR code dal dispositivo mobile</h2>
+            </div>
+            <div class="ic1-col-12 ic1-my-24 flex justify-center content-center items-center">
+                <img [src]="qrCodeImage">
+            </div>
+            <div class="ic1-col-12 flex justify-start">
+                <button (click)="goToStep1()" type="button" class="ic1-btn ic1-btn-sm ic1-btn-primary ">
+                    <i class="ic1-icon ic1-icon-before ic1-icon-outlined" aria-hidden="true" role="button">west </i>
+                    <span>{{ 'cmtZp0|Demo_btn_back' | translate }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

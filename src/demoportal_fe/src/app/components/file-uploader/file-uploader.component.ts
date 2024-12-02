@@ -14,24 +14,42 @@ export class FileUploaderComponent {
   @Input() uploaderIndex: number = 1;
   @Input() hideWebcam: boolean = false;
   @Input() hideQr: boolean = false;
+  @Input() maxFileSize: number | null = null;
+  @Input() fileFormat: string | null = null;
   @Output() onFileUploaded = new EventEmitter();
 
   isDragActive = false;
   isVisibleImageModal = false;
   isVisibleWebcamModal = false;
   imageSrc: any = undefined;
+  imageError: string = '';
   webcamImageSrc: WebcamImage | null = null;;
   private trigger: Subject<void> = new Subject<void>();
   showFileUpload = false;
   showQRCode = false;
   qrCodeImage = '';
   originalfile: File | null = null;
-  baseUrl = environment.apiUrl || 'http://localhost:8080/';
+  baseUrl = environment.apiUrl || 'http://localhost:8080/api/';
   constructor(private documentService: DocumentService) { }
 
   triggerQrCode() {
     console.log('Generazione QR code');
-    const idMobileSession = this.generateSessionId();
+    this.documentService.generateQrCodeUrlForMobileSession('mobile-photo').subscribe((res: { qrUrl: string, idMobileSession: string }) => {
+      this.qrCodeImage = res.qrUrl;
+      this.showQRCode = true;
+      this.documentService.awaitMobileSession(res.idMobileSession).subscribe((res: any) => {
+        this.imageSrc = res.mimeType + ',' + res.b64Content;
+        this.onFileUploaded.emit({ imageSrc: this.imageSrc, uploaderIndex: this.uploaderIndex, originalfile: this.originalfile ? this.originalfile : { name: 'webcam_capture_' + this.uploaderIndex + '.jpg' } });
+
+        this.isVisibleImageModal = false;
+        this.isVisibleWebcamModal = false;
+        this.imageSrc = undefined;
+        this.showFileUpload = false;
+        this.removeQrCode();
+      });
+    });
+
+    /* const idMobileSession = this.generateSessionId();
     const url = this.baseUrl + `mobile-photo?idMobileSession=${idMobileSession}`;
     QRCode.toDataURL(url, (error, qrUrl) => {
       if (error) {
@@ -50,17 +68,17 @@ export class FileUploaderComponent {
           this.removeQrCode();
         });
       }
-    });
+    }); */
   }
 
-  generateSessionId(): string {
+  /* generateSessionId(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       const r = Math.random() * 16 | 0
       let v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
-  }
-  removeQrCode() { 
+  } */
+  removeQrCode() {
     this.showQRCode = false;
     this.qrCodeImage = '';
     this.documentService.stopSaveMobileSession();
@@ -140,15 +158,20 @@ export class FileUploaderComponent {
     input.value = '';
   }
   handleFileInput(files: FileList) {
-    this.originalfile = files[0];
-    if (this.originalfile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.imageSrc = e.target?.result;
-      };
-      reader.readAsDataURL(this.originalfile);
+    if (files.length > 0) {
+      if (this.maxFileSize && files[0].size > this.maxFileSize) {
+        this.imageError = 'File non valido';
+      } else {
+        this.originalfile = files[0];
+        if (this.originalfile) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageSrc = e.target?.result;
+          };
+          reader.readAsDataURL(this.originalfile);
+        }
+      }
     }
   }
+
 }
-
-

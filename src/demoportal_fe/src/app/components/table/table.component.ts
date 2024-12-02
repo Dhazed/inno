@@ -6,7 +6,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges } from '@angu
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit, OnChanges {
-  @Input() columns: { header: string, field: string }[] = [];
+  @Input() columns: { header: string, field: string, type?: string }[] = [];
   @Input() data: any[] = [];
   @Input() actions: { icon: string, handler: string }[] = [];
   @Output() actionClicked = new EventEmitter<{ action: string, row: any }>();
@@ -49,7 +49,10 @@ export class TableComponent implements OnInit, OnChanges {
     this.paginateData();
   }
 
-  sortData(field: string) {
+  sortData(type: string | undefined, field: string) {
+    if (type == 'image' || type == 'color') {
+      return;
+    }
     if (this.sortField === field) {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     } else {

@@ -1,0 +1,102 @@
+package it.infocert.demoportal.beans.onboarding;
+
+/* Decompiler 99ms, total 329ms, lines 110 */
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Iterator;
+
+import it.infocert.demoportal.beans.onboarding.model.ArchivingPolicy;
+import it.infocert.demoportal.beans.onboarding.model.Document;
+import it.infocert.demoportal.beans.onboarding.model.DocumentPolicy;
+import it.infocert.demoportal.beans.onboarding.model.Dossier;
+import it.infocert.demoportal.beans.onboarding.model.DossierCreationInfo;
+import it.infocert.demoportal.beans.onboarding.model.Person;
+import it.infocert.demoportal.beans.onboarding.model.SignaturePolicy;
+import it.infocert.demoportal.beans.onboarding.model.Signer;
+import it.infocert.demoportal.beans.onboarding.model.Token;
+
+public class CreateDossierHelper {
+   public static String DEFAULT_COMPANY = "DEMOPORTAL";
+
+   public void execute(String businessId, String dossierType) throws Exception {
+
+      Person titolare = new Person();
+      // ("massimo.scorletti@infocert.it", "3346340263");
+      String signerId = titolare.getLegalId().getSerialNumber();
+      Dossier dossier = new Dossier();
+      dossier.setCompanyId(DEFAULT_COMPANY);
+      dossier.setDossierId(businessId);
+      dossier.setDossierType(dossierType);
+      Signer signer = new Signer();
+      signer.setPerson(titolare);
+      signer.setSignerId(signerId);
+      signer.setRole("firmatario");
+      signer.setDefaultRedirectUrl("http://cop.infocert.it");
+      signer.setFailureRedirectUrl("http://www.infocert.it");
+      dossier.addSigner(signer);
+      Document document = new Document();
+      document.setId("DOC" + System.currentTimeMillis());
+      document.setType("contract");
+      DocumentPolicy policy = new DocumentPolicy();
+      policy.setArchive(true);
+      policy.setCompose(false);
+      policy.setSign(true);
+      document.setPolicy(policy);
+      System.out.println("------------------------");
+      System.out.println("documentId: [" + document.getId() + "]");
+      System.out.println("------------------------");
+      int howMany = 4;
+      File in = new File("src\\main\\data\\grant.pdf");
+      String baseName = "DOC" + System.currentTimeMillis();
+      File fileToSign = new File(this.outputDir, baseName + ".pdf");
+      PadesUtils padesUtils = new PadesUtils();
+      if (!this.outputDir.exists()) {
+         this.outputDir.mkdirs();
+      }
+
+      String[] names = padesUtils.prepareSignatures(in, fileToSign, "firma", howMany);
+      SignaturePolicy sp = new SignaturePolicy();
+      String[] arr$ = names;
+      int len$ = names.length;
+
+      for (int i$ = 0; i$ < len$; ++i$) {
+         String name = arr$[i$];
+         sp.addSignatureField(signerId, name, "Reason " + name, "Location " + name);
+      }
+
+      document.setSignaturePolicy(sp);
+      ArchivingPolicy ap = new ArchivingPolicy();
+      ap.setDocumentClass("contract");
+      ap.addAttribute("numero_pratica", businessId);
+      document.setArchivingPolicy(ap);
+      byte[] data = IOUtils.readBytesFromStream(new FileInputStream(fileToSign));
+      document.setContent(this.makeContent("application/pdf", data));
+      dossier.addDocument(document);
+      DossierCreationInfo esito = this.getService().createDossier(this.getRao(), dossier);
+      System.out.println(esito);
+      Iterator i$ = esito.getTokens().iterator();
+
+      while (i$.hasNext()) {
+         Token token = (Token) i$.next();
+         System.out.println(String.format("Token per [%s] --> [%s]", token.getSignerId(), token.getUrl()));
+      }
+
+   }
+
+   public static void main(String[] args) {
+      try {
+         CreateDossierHelper client = new CreateDossierHelper();
+         client.setBasicAuthentication("bpbari01", "bpb4ri.01");
+         client.setMtom(false);
+         client.setLogSoapMessages(true);
+         client.setSoapMessageLimit(2048);
+         client.setRao("K4VFA03", "ncfr0101", "502244");
+         client.execute();
+         System.out.println("finito");
+      } catch (Exception var2) {
+         var2.printStackTrace();
+      }
+
+   }
+}

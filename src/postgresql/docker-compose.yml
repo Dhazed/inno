@@ -2,19 +2,19 @@
 services:
 
   postgres:
-    image: postgres
+    image: postgres:17
     restart: always
     ports:
       - 5432:5432
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     environment:
-      POSTGRES_USER: demoportal_postrgres_user
-      POSTGRES_PASSWORD: demoportal_postrgres_password
+      POSTGRES_USER: demoportal_db_user
+      POSTGRES_PASSWORD: demoportal_db_password
       POSTGRES_DB: demoportal_schema
       PGDATA: /var/lib/postgresql/data/pgdata/
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U demoportal_postrgres_user"]
+      test: ["CMD-SHELL", "pg_isready -U demoportal_db_user"]
       interval: 100s
       timeout: 5s
       retries: 6

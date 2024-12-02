@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AppTranslationService {
-  private baseUrl: string = environment.apiUrl || 'http://localhost:8080/';
+  private baseUrl: string = environment.apiUrl || 'http://localhost:8080/api/';
 
   private languageLabels: { [key: string]: { label: string, code: string } } = {
     'es': { label: 'Spagnolo', code: 'es_ES' },
@@ -25,20 +25,34 @@ export class AppTranslationService {
   private translationsSubject = new BehaviorSubject<any>({});
   translations$: Observable<any> = this.translationsSubject.asObservable();
 
-  private langagesSubject = new BehaviorSubject<any>(null);
-  languages$: Observable<any> = this.langagesSubject.asObservable();
+  private languagesSubject = new BehaviorSubject<any>(null);
+  languages$: Observable<any> = this.languagesSubject.asObservable();
 
   constructor(private http: HttpClient, private translate: TranslateService) { }
 
   getTranslations(language?: string): Observable<any> {
-    const langCode =  language ? this.languageLabels[language].code : '';
-    return this.http.get<any[]>(this.baseUrl+'db/lokalise/' + langCode).pipe(
+    const langCode = language ? this.languageLabels[language].code : '';
+    return this.http.get<any[]>(this.baseUrl + 'db/lokalise/' + langCode).pipe(
       tap(response => {
-        const translations: { [key: string]: { [key: string]: { value: string, id: string } } } = this.transformTranslations(response);
-        this.translationsSubject.next(translations);
-        Object.keys(translations).forEach(lang => {
-          const langTranslations = Object.keys(translations[lang]).reduce((acc: any, key) => {
-            acc[key] = translations[lang][key].value;
+        const newTranslations: { [key: string]: { [key: string]: { value: string, id: string } } } = this.transformTranslations(response);
+        const currentTranslations = this.translationsSubject.value;
+  
+        // Merge new translations with current translations
+        const mergedTranslations = { ...currentTranslations };
+        Object.keys(newTranslations).forEach(lang => {
+          if (!mergedTranslations[lang]) {
+            mergedTranslations[lang] = {};
+          }
+          Object.keys(newTranslations[lang]).forEach(key => {
+            mergedTranslations[lang][key] = newTranslations[lang][key];
+          });
+        });
+  console.log(mergedTranslations);
+        this.translationsSubject.next(mergedTranslations);
+  
+        Object.keys(newTranslations).forEach(lang => {
+          const langTranslations = Object.keys(newTranslations[lang]).reduce((acc: any, key) => {
+            acc[key] = newTranslations[lang][key].value;
             return acc;
           }, {});
           this.translate.setTranslation(lang, langTranslations, true);
@@ -49,7 +63,7 @@ export class AppTranslationService {
 
   transformTranslations(data: any[]): any {
     const translations: any = {};
-    const langArray: Set<string> = new Set();
+    const langArray: Set<string> = new Set(this.languagesSubject.value?.map((lang: any) => lang.value) || []);
 
     data.forEach(item => {
       const lang = item.lang_iso.split('_')[0]; // Extract language code (e.g., 'en' from 'en_US')
@@ -66,7 +80,7 @@ export class AppTranslationService {
       };
     });
 
-    this.langagesSubject.next(Array.from(langArray).map((lang: string) => ({
+    this.languagesSubject.next(Array.from(langArray).map((lang: string) => ({
       label: this.languageLabels[lang].label || lang,
       value: lang
     })).sort((a, b) => a.label.localeCompare(b.label)));

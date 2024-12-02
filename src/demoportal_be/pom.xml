@@ -12,11 +12,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.13.0</quarkus.platform.version>
+        <quarkus.platform.version>3.16.2</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
-         <isac.client.version>2.11.0</isac.client.version>
-        <ipam-admin-client.version>3.7.0</ipam-admin-client.version>
     </properties>
 
     <dependencyManagement>
@@ -64,14 +62,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-jwt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-smallrye-jwt-build</artifactId>
-        </dependency>
       <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-oidc</artifactId>
@@ -83,6 +73,14 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-scheduler</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-security-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-websockets</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -157,19 +155,6 @@
             </plugin>
         </plugins>
     </build>
-
-<distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>libs-release</name>
-            <url>https://integrazione.mgmt.infocert.it/artifactory/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>https://integrazione.mgmt.infocert.it/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
     <profiles>
         <profile>
             <id>native</id>

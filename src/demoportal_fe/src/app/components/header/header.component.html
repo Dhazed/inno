@@ -18,7 +18,7 @@
           <span [ngClass]="flagLang" class="fi"></span>
         </button>
 
-        <div id="ic1-dropdown" [class.ic1-show]="isLangOpen"
+        <div id="ic1-dropdown"
           class="w-[15rem] ic1-dropdown ic1-dropdown-down ic1-collapse absolute top-[45px] right-[8px]">
           <ul class="ic1-dropdown-list">
             <li class="ic1-dropdown-item" role="option" aria-checked="false">
@@ -105,7 +105,8 @@
         <div class="ic1-select-wrapper">
           <div class="ic1-select ic1-placeholder content-center !h-[3rem]" data-toggle="ic1-collapse"
             data-target="ic1-collapse" style="text-overflow: ellipsis;overflow: hidden;">
-            alessandra.donzelli&#64;email.com
+           <!--  alessandra.donzelli&#64;email.com -->
+             {{ (userData$ | async)?.userData?.alias[1] }}
           </div>
           <div id="ic-select" class="ic1-dropdown ic1-dropdown-down ic1-select-dropdown ic1-collapse">
             <ul class="ic1-dropdown-list">
@@ -119,7 +120,7 @@
                   </div>
                 </span>
               </li>
-              <li routerLink="/login" class="ic1-dropdown-item" role="option" aria-checked="false">
+              <li (click)="logout()" class="ic1-dropdown-item" role="option" aria-checked="false">
                 <span role="radio" aria-checked="false">
                   <div class="ic1-dropdown-item-rows">
                     <span class="!flex !justify-start">

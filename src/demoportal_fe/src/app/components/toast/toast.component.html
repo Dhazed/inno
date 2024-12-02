@@ -1,12 +1,19 @@
-<div class="ic1-toast ic1-toast-info items-center w-full">
-    <i [class.ic1-icon-status-info]="type == 'info'" aria-hidden="true"></i>
+<div [ngClass]="{
+    'ic1-toast-info': type == 'info',
+    'ic1-toast-success': type == 'success',
+    'ic1-toast-warning': type == 'warning',
+    'ic1-toast-error': type == 'error'
+    }" class="ic1-toast items-center w-full">
+    <i [class.ic1-icon-status-info]="type == 'info'" [class.ic1-icon-status-success]="type == 'success'"
+    [class.ic1-icon-status-warning]="type == 'warning'" [class.ic1-icon-status-error]="type == 'error'"
+    aria-hidden="true"></i>
     <div class="ic1-toast-text">
-        <span *ngIf="title" class="ic1-label">{{title}}</span>
-        <p>
-            {{text}}
-        </p>
+    <span *ngIf="title" class="ic1-label">{{title}}</span>
+    <p>
+        {{text}}
+    </p>
     </div>
-    <i *ngIf="!hideClose" class="ic1-icon ic1-icon-outlined" aria-label="chiudi" role="button">
-        close
+    <i (click)="closeToast()" *ngIf="!hideClose" class="ic1-icon ic1-icon-outlined" aria-label="chiudi" role="button">
+    close
     </i>
-</div> 
+</div>

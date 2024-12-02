@@ -1,0 +1,18 @@
+.color-picker {
+    padding: 11px;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 23px;
+    border: 2px solid;
+}
+.color-picker-sm {
+    padding: 11px;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 23px;
+    border: 2px solid;
+}
+
+.ic1-form-check input[type=radio].ic1-radio+label::before {
+    align-self: center !important;
+}

@@ -2,17 +2,17 @@ package it.infocert.demoportal.beans;
 
 public class LoginResponse {
 
-    String userid = "test";
+    String user_id = "test";
 
     public LoginResponse() {
     }
 
-    public String getUserid() {
-        return userid;
+    public String getuser_id() {
+        return user_id;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setuser_id(String user_id) {
+        this.user_id = user_id;
     }
     
 }

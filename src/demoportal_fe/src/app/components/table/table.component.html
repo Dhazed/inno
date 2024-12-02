@@ -1,16 +1,17 @@
 <div class="ic1-table-wrapper flex justify-center">
-  <table class="ic1-table ic1-table-small ic1-table-striped">
+  <table class="ic1-table ic1-table-small ic1-table-striped" style="width: 100% !important;">
     <thead>
       <tr class="w-[13%]">
-        <th *ngFor="let column of columns">
-          <div class="ic1-table-column-sortable" (click)="sortData(column.field)">
+        <th *ngFor="let column of columns" [class.w-[15rem]]="column.type == 'email'" [class.w-[8rem]]="column.type == 'image'">
+          <div class="ic1-table-column-sortable"  [class.!text-center]="column.type == 'image'"  [class.!pr-0]="column.type == 'image'" (click)="sortData(column.type, column.field)">
             {{ column.header | translate }}
-            <i *ngIf="sortField === column.field" class="ic1-icon ic1-table-column-action" aria-label="cambia ordine" role="button">
+            <i *ngIf="sortField === column.field" class="ic1-icon ic1-table-column-action" aria-label="cambia ordine"
+              role="button">
               {{ sortOrder === 'asc' ? 'north' : 'south' }}
             </i>
           </div>
         </th>
-        <th>
+        <th class="w-[8rem]">
           <div class="text-center">{{ 'ACTIONS' | translate }}</div>
         </th>
       </tr>
@@ -18,7 +19,15 @@
     <tbody>
       <tr *ngFor="let row of paginatedData">
         <td *ngFor="let column of columns">
-          <div>{{ row[column.field] }}</div>
+          <div *ngIf="!column.type || column.type == 'email'">{{ row[column.field] }}</div>
+          <div *ngIf="column.type == 'color'">
+            <div class="h-[1rem] rounded-[12px] min-w-[3rem]"
+              [ngStyle]="{'background-color': row[column.field]}">
+            </div>
+          </div>
+          <div *ngIf="column.type == 'image' && row[column.field]" class="flex justify-center">
+            <img [src]="row[column.field]" alt="image" class="rounded-[50%] h-[40px]" />
+          </div>
         </td>
         <td>
           <div class="ic1-table-column-actions">
